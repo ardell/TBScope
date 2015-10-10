@@ -14,7 +14,7 @@
 #include "cv.h"
 
 @interface CameraScrollView : UIScrollView <UIScrollViewDelegate>
-@property (strong,nonatomic) UIView* previewLayerView;
+@property (strong,nonatomic) UIImageView* previewLayerView;
 @property (strong,nonatomic) UILabel* imageQualityLabel;
 @property (nonatomic) float imageRotation;
 @property (nonatomic) double currentFocusMetric;

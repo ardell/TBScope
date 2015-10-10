@@ -3383,6 +3383,13 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="OHk-kc-fKL" customClass="CameraScrollView">
                                 <rect key="frame" x="-1" y="0.0" width="1025" height="768"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="4Of-0D-ob2">
+                                        <rect key="frame" x="-128" y="24" width="1280" height="720"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button hidden="YES" opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I05-Lh-RGK">
@@ -3663,6 +3670,7 @@
                         <outlet property="downButton" destination="ZFT-CF-FFD" id="ROF-JG-olD"/>
                         <outlet property="fastSlowButton" destination="W2L-va-E6w" id="ncP-BP-XFS"/>
                         <outlet property="flButton" destination="s2l-zF-M9a" id="A0z-YO-Akw"/>
+                        <outlet property="imageView" destination="4Of-0D-ob2" id="JId-Fe-TGn"/>
                         <outlet property="intensityLabel" destination="7bi-J2-S3x" id="YLe-q3-RKW"/>
                         <outlet property="intensitySlider" destination="fTV-Kb-VKa" id="qqs-KU-nbV"/>
                         <outlet property="leftButton" destination="xK6-ED-t9S" id="8DG-gK-FJv"/>

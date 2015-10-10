@@ -24,6 +24,7 @@
 		8A5CDE591BB4489F004E30A3 /* TBScopeHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE581BB4489F004E30A3 /* TBScopeHardware.m */; };
 		8A5CDE5C1BB44A34004E30A3 /* TBScopeHardwareMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE5B1BB44A34004E30A3 /* TBScopeHardwareMock.m */; };
 		8A5CDE5F1BB44BE5004E30A3 /* TBScopeHardwareReal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE5E1BB44BE5004E30A3 /* TBScopeHardwareReal.m */; };
+		8AA17AC21BC9902A00D03C3A /* CameraScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AA17AC11BC9902A00D03C3A /* CameraScrollView.m */; settings = {ASSET_TAGS = (); }; };
 		8AEC0CE51BC4B23F009C0D00 /* fl_01_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */; settings = {ASSET_TAGS = (); }; };
 		8AEC0CE61BC4B23F009C0D00 /* fl_01_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */; settings = {ASSET_TAGS = (); }; };
 		8AEC0CE71BC4B23F009C0D00 /* fl_01_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -115,14 +116,13 @@
 		A5C0157F18FDD1D5004BC143 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C0157E18FDD1D5004BC143 /* MessageUI.framework */; };
 		A5C27AA1182C3AB900A8CB1D /* MainMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AA0182C3AB900A8CB1D /* MainMenuViewController.m */; };
 		A5C27AA4182C3E8600A8CB1D /* EditExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AA3182C3E8600A8CB1D /* EditExamViewController.m */; };
-		A5C27AA7182C562C00A8CB1D /* CaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AA6182C562C00A8CB1D /* CaptureViewController.m */; };
+		A5C27AA7182C562C00A8CB1D /* CaptureViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AA6182C562C00A8CB1D /* CaptureViewController.mm */; };
 		A5C27AAF182EFAF400A8CB1D /* TBSlideViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AAC182EFAF400A8CB1D /* TBSlideViewer.m */; };
 		A5C27AB0182EFAF400A8CB1D /* TBSlideViewerSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C27AAE182EFAF400A8CB1D /* TBSlideViewerSubview.m */; };
 		A5C341941835A4CD00DBBD37 /* scalearrow.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C341931835A4CD00DBBD37 /* scalearrow.png */; };
 		A5C5079E1866304D00187BBC /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5C5079D1866304D00187BBC /* CoreBluetooth.framework */; };
 		A5C8E177196DFF8C0072D99C /* NSData+HexData.m in Sources */ = {isa = PBXBuildFile; fileRef = A5C8E176196DFF8C0072D99C /* NSData+HexData.m */; };
 		A5C8E17B196F86860072D99C /* pictureicon.png in Resources */ = {isa = PBXBuildFile; fileRef = A5C8E17A196F86860072D99C /* pictureicon.png */; };
-		A5CF19FA187A39DF00C2C2E1 /* CameraScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = A5CF19F9187A39DF00C2C2E1 /* CameraScrollView.m */; };
 		A5CF1A08187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I1_Fluor_Y_F.tif in Resources */ = {isa = PBXBuildFile; fileRef = A5CF1A04187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I1_Fluor_Y_F.tif */; };
 		A5CF1A09187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I2_Fluor_Y_F.tif in Resources */ = {isa = PBXBuildFile; fileRef = A5CF1A05187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I2_Fluor_Y_F.tif */; };
 		A5CF1A0A187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I3_Fluor_Y_F.tif in Resources */ = {isa = PBXBuildFile; fileRef = A5CF1A06187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I3_Fluor_Y_F.tif */; };
@@ -357,6 +357,7 @@
 		8A5CDE5D1BB44BE5004E30A3 /* TBScopeHardwareReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeHardwareReal.h; path = Services/TBScopeHardwareReal.h; sourceTree = "<group>"; };
 		8A5CDE5E1BB44BE5004E30A3 /* TBScopeHardwareReal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBScopeHardwareReal.m; path = Services/TBScopeHardwareReal.m; sourceTree = "<group>"; };
 		8A6998811BB31B2E0034AA93 /* CellScope-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CellScope-Prefix.pch"; sourceTree = "<group>"; };
+		8AA17AC11BC9902A00D03C3A /* CameraScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraScrollView.m; sourceTree = "<group>"; };
 		8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_01.jpg; sourceTree = "<group>"; };
 		8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_02.jpg; sourceTree = "<group>"; };
 		8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_03.jpg; sourceTree = "<group>"; };
@@ -482,7 +483,7 @@
 		A5C27AA2182C3E8600A8CB1D /* EditExamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditExamViewController.h; sourceTree = "<group>"; };
 		A5C27AA3182C3E8600A8CB1D /* EditExamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditExamViewController.m; sourceTree = "<group>"; };
 		A5C27AA5182C562C00A8CB1D /* CaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureViewController.h; sourceTree = "<group>"; };
-		A5C27AA6182C562C00A8CB1D /* CaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureViewController.m; sourceTree = "<group>"; };
+		A5C27AA6182C562C00A8CB1D /* CaptureViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CaptureViewController.mm; sourceTree = "<group>"; };
 		A5C27AAB182EFAF400A8CB1D /* TBSlideViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSlideViewer.h; sourceTree = "<group>"; };
 		A5C27AAC182EFAF400A8CB1D /* TBSlideViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBSlideViewer.m; sourceTree = "<group>"; };
 		A5C27AAD182EFAF400A8CB1D /* TBSlideViewerSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBSlideViewerSubview.h; sourceTree = "<group>"; };
@@ -493,7 +494,6 @@
 		A5C8E176196DFF8C0072D99C /* NSData+HexData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+HexData.m"; path = "CellScope/NSData+HexData.m"; sourceTree = SOURCE_ROOT; };
 		A5C8E17A196F86860072D99C /* pictureicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pictureicon.png; sourceTree = "<group>"; };
 		A5CF19F8187A39DF00C2C2E1 /* CameraScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraScrollView.h; sourceTree = "<group>"; };
-		A5CF19F9187A39DF00C2C2E1 /* CameraScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraScrollView.m; sourceTree = "<group>"; };
 		A5CF1A04187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I1_Fluor_Y_F.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DHC5_CHP21_1010296_S1_R1_HLH_I1_Fluor_Y_F.tif; sourceTree = "<group>"; };
 		A5CF1A05187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I2_Fluor_Y_F.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DHC5_CHP21_1010296_S1_R1_HLH_I2_Fluor_Y_F.tif; sourceTree = "<group>"; };
 		A5CF1A06187DF4E400C2C2E1 /* DHC5_CHP21_1010296_S1_R1_HLH_I3_Fluor_Y_F.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = DHC5_CHP21_1010296_S1_R1_HLH_I3_Fluor_Y_F.tif; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 				A5B45F93183039BE002F4D30 /* LoadSampleViewController.h */,
 				A5B45F94183039BE002F4D30 /* LoadSampleViewController.m */,
 				A5C27AA5182C562C00A8CB1D /* CaptureViewController.h */,
-				A5C27AA6182C562C00A8CB1D /* CaptureViewController.m */,
+				A5C27AA6182C562C00A8CB1D /* CaptureViewController.mm */,
 				A599E11218247BEF00B52EF2 /* AnalysisViewController.h */,
 				A599E11318247BEF00B52EF2 /* AnalysisViewController.m */,
 				A599E10F1824413300B52EF2 /* ResultsTabBarController.h */,
@@ -910,7 +910,7 @@
 				A5FD379E183DDEB400C67D85 /* GoogleDriveViewController.h */,
 				A5FD379F183DDEB400C67D85 /* GoogleDriveViewController.m */,
 				A5CF19F8187A39DF00C2C2E1 /* CameraScrollView.h */,
-				A5CF19F9187A39DF00C2C2E1 /* CameraScrollView.m */,
+				8AA17AC11BC9902A00D03C3A /* CameraScrollView.m */,
 				A5C27AAB182EFAF400A8CB1D /* TBSlideViewer.h */,
 				A5C27AAC182EFAF400A8CB1D /* TBSlideViewer.m */,
 				A5C27AAD182EFAF400A8CB1D /* TBSlideViewerSubview.h */,
@@ -1408,13 +1408,13 @@
 				AC1CF6B0179E52DB007FA438 /* Region.cpp in Sources */,
 				A5CF1A38187F3EDC00C2C2E1 /* ExamListTableViewCell.m in Sources */,
 				A5FD379D183DCF4700C67D85 /* UsersViewController.m in Sources */,
-				A5CF19FA187A39DF00C2C2E1 /* CameraScrollView.m in Sources */,
 				AC5E748D179F3DA700BDC4EB /* Debug.cpp in Sources */,
 				AC5E749F179F3F3200BDC4EB /* Classifier.cpp in Sources */,
 				8A5CDE5F1BB44BE5004E30A3 /* TBScopeHardwareReal.m in Sources */,
 				A5FD379A183DBE6400C67D85 /* SettingsViewController.m in Sources */,
 				A599E1111824413300B52EF2 /* ResultsTabBarController.m in Sources */,
 				AC5E74AB179F421900BDC4EB /* svm-scale.c in Sources */,
+				8AA17AC21BC9902A00D03C3A /* CameraScrollView.m in Sources */,
 				A5FCCD3018B6F0730004B2F5 /* Images.m in Sources */,
 				A5C0156D18F8C9B7004BC143 /* PrintViewController.m in Sources */,
 				AC5E74AD179F421900BDC4EB /* svm-train.c in Sources */,
@@ -1428,7 +1428,7 @@
 				A599E11418247BEF00B52EF2 /* AnalysisViewController.m in Sources */,
 				A5C27AA1182C3AB900A8CB1D /* MainMenuViewController.m in Sources */,
 				AC5E74A9179F421900BDC4EB /* svm-predict.c in Sources */,
-				A5C27AA7182C562C00A8CB1D /* CaptureViewController.m in Sources */,
+				A5C27AA7182C562C00A8CB1D /* CaptureViewController.mm in Sources */,
 				A5FD37A0183DDEB400C67D85 /* GoogleDriveViewController.m in Sources */,
 				A5C8E177196DFF8C0072D99C /* NSData+HexData.m in Sources */,
 				A52BDEB71859236F00B4ECB2 /* TBScope.xcdatamodeld in Sources */,

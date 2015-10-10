@@ -27,7 +27,17 @@ AVAudioPlayer* _avPlayer;
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
 
+    // Use the OpenCV video camera wrapper
+    self.videoCamera = [[CvVideoCamera alloc] initWithParentView:self.imageView];
+    self.videoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionFront;
+    self.videoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1280x720;
+    self.videoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationLandscapeLeft;
+    self.videoCamera.defaultFPS = 30;
+    self.videoCamera.grayscaleMode = NO;
+    self.videoCamera.delegate = self;
+    [self.videoCamera start];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,8 +72,8 @@ AVAudioPlayer* _avPlayer;
     
     [previewView setAutoresizesSubviews:NO];  //TODO: necessary?
     
-    [[TBScopeCamera sharedCamera] setExposureLock:YES];
-    [[TBScopeCamera sharedCamera] setFocusLock:YES];
+    // [[TBScopeCamera sharedCamera] setExposureLock:YES];
+    // [[TBScopeCamera sharedCamera] setFocusLock:YES];
     
     self.analyzeButton.enabled = NO;
     
@@ -177,6 +187,7 @@ AVAudioPlayer* _avPlayer;
 
 - (void)didPressCapture:(id)sender
 {
+    return;
     if ([[TBScopeCamera sharedCamera] isPreviewRunning])
     {
         // Grab image in background thread; otherwise it may be delayed due
@@ -194,7 +205,7 @@ AVAudioPlayer* _avPlayer;
 
 - (void)saveImageCallback
 {
-    
+    return;
     [TBScopeData CSLog:@"Snapped an image" inCategory:@"CAPTURE"];
     
     UIImage* image = [[TBScopeCamera sharedCamera] lastCapturedImage]; //[self convertImageToGrayScale:previewView.lastCapturedImage];
@@ -424,12 +435,12 @@ AVAudioPlayer* _avPlayer;
         self.intensitySlider.tintColor = [UIColor greenColor];
         self.intensityLabel.textColor = [UIColor greenColor];
         
-        [[TBScopeCamera sharedCamera] setExposureLock:NO];
+        // [[TBScopeCamera sharedCamera] setExposureLock:NO];
         [[TBScopeHardware sharedHardware] setMicroscopeLED:CSLEDBrightfield Level:intensity];
         [NSThread sleepForTimeInterval:2.0];
-        [[TBScopeCamera sharedCamera] setExposureLock:YES];
+        // [[TBScopeCamera sharedCamera] setExposureLock:YES];
 
-        [[TBScopeCamera sharedCamera] setFocusMode:TBScopeCameraFocusModeSharpness];
+        // [[TBScopeCamera sharedCamera] setFocusMode:TBScopeCameraFocusModeSharpness];
         
         [self.bfButton setTitle:NSLocalizedString(@"BF On",nil) forState:UIControlStateNormal];
         [self.bfButton setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
@@ -465,7 +476,7 @@ AVAudioPlayer* _avPlayer;
         [self.flButton setTitle:NSLocalizedString(@"FL On",nil) forState:UIControlStateNormal];
         [self.flButton setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
 
-        [[TBScopeCamera sharedCamera] setFocusMode:TBScopeCameraFocusModeContrast];
+        // [[TBScopeCamera sharedCamera] setFocusMode:TBScopeCameraFocusModeContrast];
     }
     else
     {
@@ -528,13 +539,13 @@ AVAudioPlayer* _avPlayer;
     {
         if (AEOn)
         {
-            [[TBScopeCamera sharedCamera] setExposureLock:YES];
+            // [[TBScopeCamera sharedCamera] setExposureLock:YES];
             [buttonPressed setTitle:NSLocalizedString(@"AE Off",nil) forState:UIControlStateNormal];
             [buttonPressed setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         else
         {
-            [[TBScopeCamera sharedCamera] setExposureLock:NO];
+            // [[TBScopeCamera sharedCamera] setExposureLock:NO];
             [buttonPressed setTitle:NSLocalizedString(@"AE On",nil) forState:UIControlStateNormal];
             [buttonPressed setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
         }
@@ -544,13 +555,13 @@ AVAudioPlayer* _avPlayer;
     {
         if (AFOn)
         {
-            [[TBScopeCamera sharedCamera] setFocusLock:YES];
+            // [[TBScopeCamera sharedCamera] setFocusLock:YES];
             [buttonPressed setTitle:NSLocalizedString(@"AF Off",nil) forState:UIControlStateNormal];
             [buttonPressed setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
         else
         {
-            [[TBScopeCamera sharedCamera] setFocusLock:NO];
+            // [[TBScopeCamera sharedCamera] setFocusLock:NO];
             [buttonPressed setTitle:NSLocalizedString(@"AF On",nil) forState:UIControlStateNormal];
             [buttonPressed setTitleColor:[UIColor yellowColor] forState:UIControlStateNormal];
         }
@@ -590,7 +601,7 @@ AVAudioPlayer* _avPlayer;
 
 - (void) didReceiveMemoryWarning
 {
-    [[TBScopeCamera sharedCamera] clearLastCapturedImage];
+    // [[TBScopeCamera sharedCamera] clearLastCapturedImage];
 
     [TBScopeData CSLog:@"CaptureViewController received memory warning" inCategory:@"MEMORY"];
 }
@@ -724,8 +735,8 @@ AVAudioPlayer* _avPlayer;
     });
     
     //starting conditions
-    [[TBScopeCamera sharedCamera] setExposureLock:NO];
-    [[TBScopeCamera sharedCamera] setFocusLock:YES];
+    // [[TBScopeCamera sharedCamera] setExposureLock:NO];
+    // [[TBScopeCamera sharedCamera] setFocusLock:YES];
     [self toggleBF:NO];
     [self toggleFL:NO];
     [NSThread sleepForTimeInterval:0.1];
@@ -763,10 +774,10 @@ AVAudioPlayer* _avPlayer;
     NSLog(@"auto expose");
     dispatch_async(dispatch_get_main_queue(), ^(void){
         self.scanStatusLabel.text = NSLocalizedString(@"Exposure Calibration...", nil);});
-    [[TBScopeCamera sharedCamera] setExposureLock:NO];
+    // [[TBScopeCamera sharedCamera] setExposureLock:NO];
     [[TBScopeHardware sharedHardware] setMicroscopeLED:CSLEDBrightfield Level:bfIntensity];
     [NSThread sleepForTimeInterval:2.0];
-    [[TBScopeCamera sharedCamera] setExposureLock:YES];
+    // [[TBScopeCamera sharedCamera] setExposureLock:YES];
     
     //focus in BF with wide range first
     
@@ -784,7 +795,7 @@ AVAudioPlayer* _avPlayer;
     //check if abort button pressed
     if (_isAborting) { dispatch_async(dispatch_get_main_queue(), ^(void){[self abortCapture];}); return; }
     
-    int yDir;
+    CSStageDirection yDir;
     //x iterator
     for (int i=0; i<numCols; i++) {
         
@@ -982,4 +993,23 @@ AVAudioPlayer* _avPlayer;
         while ([_avPlayer isPlaying]) {};
     });
 }
+
+#ifdef __cplusplus
+- (void)processImage:(cv::Mat &)image
+{
+    cv::Mat imageCopy;
+    cvtColor(image, imageCopy, CV_BGRA2BGR);
+
+    cv::Mat output(imageCopy.rows, imageCopy.cols, CV_8UC3);
+    cv::Mat alpha(imageCopy.rows, imageCopy.cols, CV_8UC1);
+    cv::Mat greenOnly[] = { output };
+    // rgba[0] -> bgr[2], rgba[1] -> bgr[1],
+    // rgba[2] -> bgr[0], rgba[3] -> alpha[0]
+    int from_to[] = { 1,1 };
+    mixChannels(&imageCopy, 1, greenOnly, 1, from_to, 1);
+
+    cvtColor(greenOnly[0], image, CV_BGR2BGRA);
+}
+#endif
+
 @end

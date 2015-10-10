@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <opencv2/highgui/cap_ios.h>
 #import <ImageIO/ImageIO.h>
 #import "TBScopeData.h"
 #import "TBScopeHardware.h"
@@ -24,8 +25,7 @@
 
 #define MAX_FLUORESCENCE_AF_FAILURES 3
 
-@interface CaptureViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate, TBScopeHardwareDelegate>
-
+@interface CaptureViewController : UIViewController <TBScopeHardwareDelegate, CvVideoCameraDelegate>
 
 @property (strong,nonatomic) Slides* currentSlide;
 
@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIButton* snapButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem* analyzeButton;
 @property (weak, nonatomic) IBOutlet UINavigationItem* navItem;
+@property (weak, nonatomic) IBOutlet UIImageView* imageView;
+@property (nonatomic,retain) CvVideoCamera* videoCamera;
 
 @property (strong, nonatomic) NSTimer* holdTimer;
 

@@ -61,7 +61,8 @@
 
 - (float)currentImageQualityMetric
 {
-    return [[TBScopeCamera sharedCamera] currentFocusMetric];
+    return 0.0;
+    // return [[TBScopeCamera sharedCamera] currentFocusMetric];
 }
 
 - (void)clearLastGoodPositionAndMetric

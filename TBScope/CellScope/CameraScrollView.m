@@ -28,25 +28,27 @@
         [self setShowsVerticalScrollIndicator:YES];
         [self setIndicatorStyle:UIScrollViewIndicatorStyleWhite];
         
-        [[TBScopeCamera sharedCamera] setExposureLock:NO];
-        [[TBScopeCamera sharedCamera] setFocusLock:NO];
+        // [[TBScopeCamera sharedCamera] setExposureLock:NO];
+        // [[TBScopeCamera sharedCamera] setFocusLock:NO];
     }
     return self;
 }
 
 - (void)setUpPreview
 {
-    [[TBScopeCamera sharedCamera] setUpCamera];
+    // [[TBScopeCamera sharedCamera] setUpCamera];
 
     // Setup image preview layer
     CGRect frame = CGRectMake(0, 0, 2592, 1936); //TODO: grab the resolution from the camera?
-    previewLayerView = [[UIView alloc] initWithFrame:frame];
-    CALayer *viewLayer = previewLayerView.layer;
-    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[TBScopeCamera sharedCamera] captureVideoPreviewLayer];
-    captureVideoPreviewLayer.frame = viewLayer.bounds;
-    captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeLeft;
-    [viewLayer addSublayer:captureVideoPreviewLayer];
+    self.previewLayerView = [[UIImageView alloc] initWithFrame:frame];
+    // CALayer *viewLayer = previewLayerView.layer;
+
+    // AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[TBScopeCamera sharedCamera] captureVideoPreviewLayer];
+    // captureVideoPreviewLayer.frame = viewLayer.bounds;
+    // captureVideoPreviewLayer.orientation = AVCaptureVideoOrientationLandscapeLeft;
+    // [viewLayer addSublayer:captureVideoPreviewLayer];
     [self addSubview:previewLayerView];
+
     [self setContentSize:frame.size];
     [self setDelegate:self];
     [self zoomExtents];
@@ -93,10 +95,10 @@
 
 - (void)takeDownCamera
 {
-    [self.previewLayerView removeFromSuperview];
-    [self.previewLayerView.layer removeFromSuperlayer];
-    self.previewLayerView = nil;
-    [[TBScopeCamera sharedCamera] takeDownCamera];
+    // [self.previewLayerView removeFromSuperview];
+    // [self.previewLayerView.layer removeFromSuperlayer];
+    // self.previewLayerView = nil;
+    // [[TBScopeCamera sharedCamera] takeDownCamera];
 }
 
 
@@ -116,7 +118,7 @@
 
 - (void) grabImage
 {
-    [[TBScopeCamera sharedCamera] captureImage];  // TODO: add a completion block instead of processing it up the chain?
+    // [[TBScopeCamera sharedCamera] captureImage];  // TODO: add a completion block instead of processing it up the chain?
 
     //TODO: now update the field with the captured image and stop preview mode
 }
@@ -125,6 +127,5 @@
 {
     return previewLayerView;
 }
-
 
 @end
