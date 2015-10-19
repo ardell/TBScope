@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 UC Berkeley Fletcher Lab. All rights reserved.
 //
 
+#include <ctime>
 #import "CaptureViewController.h"
 #import "TBScopeCamera.h"
 #import "TBScopeFocusManager.h"
@@ -38,6 +39,24 @@ AVAudioPlayer* _avPlayer;
     self.videoCamera.grayscaleMode = NO;
     self.videoCamera.delegate = self;
     [self.videoCamera start];
+
+    // This works, just need to move it somewhere sensible
+    AVCaptureDeviceInput *input = [self.videoCamera.captureSession.inputs objectAtIndex:0];
+    AVCaptureDevice *device = [input device];
+    CMTime exposureDuration = CMTimeMake(50, 1e3);
+    int isoSpeed = 64;
+    NSError* error;
+    if ([device lockForConfiguration:&error])
+    {
+        __block AVCaptureDevice *weakDevice = device;
+        [device setExposureModeCustomWithDuration:exposureDuration
+                                              ISO:isoSpeed
+                                completionHandler:^(CMTime cmTime){
+                                    [weakDevice unlockForConfiguration];
+                                }];
+    } else {
+        NSLog(@"Error: %@",error);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -1009,6 +1028,12 @@ AVAudioPlayer* _avPlayer;
     mixChannels(&imageCopy, 1, greenOnly, 1, from_to, 1);
 
     cvtColor(greenOnly[0], image, CV_BGR2BGRA);
+
+    // Calculate focus metric
+    ImageQuality iq = [ImageQualityAnalyzer calculateFocusMetricFromCvMat:image];
+    time_t rawtime;
+    time (&rawtime);
+    std::cout << ctime(&rawtime) << " greenContrast: " << iq.greenContrast << ", sharpness: " << iq.sharpness << "\n";
 }
 #endif
 

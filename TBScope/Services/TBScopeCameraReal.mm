@@ -184,7 +184,7 @@
     
     [self.stillOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
      {
-         CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+         CFDictionaryRef exifAttachments = (CFDictionaryRef)CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
          if (exifAttachments) {
              // Do something with the attachments.
              // TODO: save this data to CD

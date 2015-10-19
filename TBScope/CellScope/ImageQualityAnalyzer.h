@@ -31,6 +31,7 @@ typedef struct
 
 + (IplImage *)createIplImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
++ (ImageQuality) calculateFocusMetricFromCvMat:(cv::Mat)src;
 + (ImageQuality) calculateFocusMetricFromIplImage:(IplImage *)iplImage;
 
 + (UIImage*) maskCircleFromImage:(UIImage*)inputImage;

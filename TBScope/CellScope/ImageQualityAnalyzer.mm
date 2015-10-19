@@ -331,37 +331,6 @@ double meanOfVector(std::vector<int> values) {
 
 + (ImageQuality) calculateFocusMetricFromIplImage:(IplImage *)iplImage
 {
-//    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//    NSData *data = [NSData dataWithBytes:iplImage->imageData length:iplImage->imageSize];
-//    CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)data);
-//    CGImageRef imageRef = CGImageCreate(
-//                                        iplImage->width, iplImage->height,
-//                                        iplImage->depth, iplImage->depth * iplImage->nChannels, iplImage->widthStep,
-//                                        colorSpace, kCGImageAlphaNone|kCGBitmapByteOrderDefault,
-//                                        provider, NULL, false, kCGRenderingIntentDefault
-//                                        );
-//    UIImage *uiImg = [UIImage imageWithCGImage:imageRef];
-//    CGImageRelease(imageRef);
-//    CGDataProviderRelease(provider);
-//    CGColorSpaceRelease(colorSpace);
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"output-docs.png"];
-//    [UIImagePNGRepresentation(uiImg) writeToFile:filePath atomically:YES];
-    
-    /*
-    //generate a cv::mat from sampleBuffer
-    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    CVPixelBufferLockBaseAddress( pixelBuffer, 0 );
-    int bufferWidth = CVPixelBufferGetWidth(pixelBuffer);
-    int bufferHeight = CVPixelBufferGetHeight(pixelBuffer);
-    unsigned char *pixel = (unsigned char *)CVPixelBufferGetBaseAddress(pixelBuffer);
-    cv::Mat src = cv::Mat(bufferHeight,bufferWidth,CV_8UC4,pixel);
-    CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
-     */
-    
-    ImageQuality iq;
-
-    // Derive a green/blue brightness representation (for contrast calculation)
     Mat src = Mat(iplImage);
     src.convertTo(src, CV_8UC3);
     Mat channels[4];
@@ -370,26 +339,25 @@ double meanOfVector(std::vector<int> values) {
     channels[0].release();
     channels[2].release();
     channels[3].release();
-    
-    /*
-    Mat lap;
-    //cv::Mat greenChannel;
-    //cv::extractChannel(src, greenChannel, 1);
-    
-    Laplacian(src, lap, CV_64F);
-*/
+    ImageQuality iq = [ImageQualityAnalyzer calculateFocusMetricFromCvMat:green];
+    src.release();
 
-    // Calculate base metrics (used for contrast etc)
-    Scalar mean, stDev;
-    double minVal, maxVal;
-    meanStdDev(src, mean, stDev);
-    minMaxIdx(src, &minVal, &maxVal);
+    return iq;
+}
 
-    std::vector<int> pixelVals = sortValues(pixelValues(green), sortFnAsc);
++ (ImageQuality) calculateFocusMetricFromCvMat:(Mat)rgbMat
+{
+    cv::Mat src;
+    cv::cvtColor(rgbMat, src, CV_BGR2GRAY);
+
+    ImageQuality iq;
+
+    std::vector<int> pixelVals = sortValues(pixelValues(src), sortFnAsc);
     double meanLow = meanOfVector(filterByPercentile(pixelVals, 0.25, 0.75));
     double meanHigh = meanOfVector(filterByPercentile(pixelVals, 0.995, 1.0));
-    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.75);
-    // std::vector<int> high = filterByPercentile(pixelVals, 0.99, 1.0);
+    NSLog(@"meanLow: %3.3f  meanHigh: %3.3f", meanLow, meanHigh);
+    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.30);
+    // std::vector<int> high = filterByPercentile(pixelVals, 0.80, 0.90);
     // NSLog(@"low: %d-%d  high: %d-%d", low.front(), low.back(), high.front(), high.back());
     // NSLog(@"Histogram:\n");
     // for (int i=0; i<=255; i++) {
@@ -402,48 +370,14 @@ double meanOfVector(std::vector<int> values) {
     iq.varianceOfLaplacian = 0;  // varianceOfLaplacian(src);
     iq.modifiedLaplacian = 0;  // modifiedLaplacian(src);
     iq.tenengrad1 = 0;  // tenengrad(src, 1);
-    iq.tenengrad3 = tenengrad(green, 3);
+    iq.tenengrad3 = 0;  // tenengrad(src, 3);
     iq.tenengrad9 = 0;  // tenengrad(src, 9);
     iq.maxVal = 0;  // maxVal;
     iq.contrast = 0;
     iq.greenContrast = meanHigh/MAX(1.0, meanLow);
     //TODO: need a metric for overall image content (if > 20%, throw it out)
-
-    src.release();
-    green.release();
-    
-    //lap.release();
-    cvReleaseImage(&iplImage);
-    
     
     return iq;
-    
-    
-    
-    /*
-    IplImage* img = [ImageQualityAnalyzer createIplImageFromSampleBuffer:sampleBuffer];
-    
-    // assumes that your image is already in planner yuv or 8 bit greyscale
-    //IplImage* in = cvCreateImage(cvSize(width,height),IPL_DEPTH_8U,1);
-    IplImage* out = cvCreateImage(cvSize(img->width,img->height),IPL_DEPTH_16S,1);
-    //memcpy(in->imageData,data,width*height);
-    
-    
-    // aperture size of 1 corresponds to the correct matrix
-    cvLaplace(img, out, 1);
-    
-    short maxLap = -32767;
-    short* imgData = (short*)out->imageData;
-    for(int i =0;i<(out->imageSize/2);i++)
-    {
-        if(imgData[i] > maxLap) maxLap = imgData[i];
-    }
-    
-    cvReleaseImage(&img);
-    cvReleaseImage(&out);
-    
-    return maxLap;
-     */
 }
 
 //TODO: remove the unnecessary conversion functions in this file
