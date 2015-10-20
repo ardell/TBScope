@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#define CROP_WINDOW_SIZE 250  // Had to reduce this (from 700) to get 10+ frames/sec
+
 typedef struct
     {
         double normalizedGraylevelVariance;
@@ -25,6 +27,8 @@ typedef struct
         double maxVal;
         double contrast;
         double greenContrast;
+        double boundaryScore;
+        double contentScore;
     } ImageQuality;
 
 @interface ImageQualityAnalyzer : NSObject

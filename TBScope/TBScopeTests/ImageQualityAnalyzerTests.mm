@@ -17,6 +17,10 @@
 
 @implementation ImageQualityAnalyzerTests
 
+static int const kLastBoundaryImageIndex = 10;
+static int const kLastContentImageIndex = 8;
+static int const kLastEmptyImageIndex = 11;
+
 - (void)setUp {
     [super setUp];
 }
@@ -88,6 +92,95 @@
     }
 }
 
+- (void)testThatBoundaryDetectionWorks {
+    NSMutableArray *testCases = [[NSMutableArray alloc] init];
+
+    // Calculate content scores for all images
+    NSDictionary *scores = @{
+                             @"boundary" : [[NSMutableDictionary alloc] init],
+                             @"content"  : [[NSMutableDictionary alloc] init],
+                             @"empty"    : [[NSMutableDictionary alloc] init],
+                             };
+    for (int i=1; i<=kLastBoundaryImageIndex; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"fl_boundary_%02d", i];
+        NSDecimalNumber *score = [self _boundaryScoreForImageNamed:imageName];
+        [scores[@"boundary"] setObject:score forKey:[NSNumber numberWithInt:i]];
+    }
+    for (int i=1; i<=kLastContentImageIndex; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"fl_content_%02d", i];
+        NSDecimalNumber *score = [self _boundaryScoreForImageNamed:imageName];
+        [scores[@"content"] setObject:score forKey:[NSNumber numberWithInt:i]];
+    }
+    for (int i=1; i<=kLastEmptyImageIndex; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"fl_empty_%02d", i];
+        NSDecimalNumber *score = [self _boundaryScoreForImageNamed:imageName];
+        [scores[@"empty"] setObject:score forKey:[NSNumber numberWithInt:i]];
+    }
+
+    for (int boundaryIndex=1; boundaryIndex<=kLastBoundaryImageIndex; boundaryIndex++) {
+        // Boundary images have higher boundary score than content images
+        for (int contentIndex=1; contentIndex<=kLastContentImageIndex; contentIndex++) {
+            NSArray *testCase = @[
+                                  scores[@"boundary"][[NSNumber numberWithInt:boundaryIndex]],
+                                  scores[@"content"][[NSNumber numberWithInt:contentIndex]],
+                                  ];
+            [testCases addObject:testCase];
+        }
+
+        // Boundary images have higher boundary score than empty images
+        for (int emptyIndex=1; emptyIndex<=kLastEmptyImageIndex; emptyIndex++) {
+            NSArray *testCase = @[
+                                  scores[@"boundary"][[NSNumber numberWithInt:boundaryIndex]],
+                                  scores[@"empty"][[NSNumber numberWithInt:emptyIndex]],
+                                  ];
+            [testCases addObject:testCase];
+        }
+    }
+
+    for (NSArray *testCase in testCases) {
+        NSDecimalNumber *higherContentScore = testCase[0];
+        NSDecimalNumber *lowerContentScore = testCase[1];
+        XCTAssertGreaterThan([higherContentScore doubleValue], [lowerContentScore doubleValue]);
+    }
+}
+
+- (void)testThatContentDetectionWorks {
+    NSMutableArray *testCases = [[NSMutableArray alloc] init];
+
+    // Calculate content scores for all images
+    NSDictionary *scores = @{
+                             @"content"  : [[NSMutableDictionary alloc] init],
+                             @"empty"    : [[NSMutableDictionary alloc] init],
+                             };
+    for (int i=1; i<=kLastContentImageIndex; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"fl_content_%02d", i];
+        NSDecimalNumber *score = [self _contentScoreForImageNamed:imageName];
+        [scores[@"content"] setObject:score forKey:[NSNumber numberWithInt:i]];
+    }
+    for (int i=1; i<=kLastEmptyImageIndex; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"fl_empty_%02d", i];
+        NSDecimalNumber *score = [self _contentScoreForImageNamed:imageName];
+        [scores[@"empty"] setObject:score forKey:[NSNumber numberWithInt:i]];
+    }
+
+    for (int contentIndex=1; contentIndex<=kLastContentImageIndex; contentIndex++) {
+        // Content images have higher content score than empty images
+        for (int emptyIndex=1; emptyIndex<=kLastEmptyImageIndex; emptyIndex++) {
+            NSArray *testCase = @[
+                                  scores[@"content"][[NSNumber numberWithInt:contentIndex]],
+                                  scores[@"empty"][[NSNumber numberWithInt:emptyIndex]],
+                                  ];
+            [testCases addObject:testCase];
+        }
+    }
+
+    for (NSArray *testCase in testCases) {
+        NSDecimalNumber *higherContentScore = testCase[0];
+        NSDecimalNumber *lowerContentScore = testCase[1];
+        XCTAssertGreaterThan([higherContentScore doubleValue], [lowerContentScore doubleValue]);
+    }
+}
+
 #pragma helper methods
 
 - (NSDecimalNumber *)_contrastForImageNamed:(NSString *)imageName {
@@ -95,6 +188,20 @@
     double contrast = imageQuality.greenContrast;
     NSLog(@"Image %@ has greenContrast %3.3f", imageName, contrast);
     return [[NSDecimalNumber alloc] initWithDouble:contrast];
+}
+
+- (NSDecimalNumber *)_boundaryScoreForImageNamed:(NSString *)imageName {
+    ImageQuality imageQuality =[self _imageQualityForImageNamed:imageName];
+    double boundaryScore = imageQuality.boundaryScore;
+    NSLog(@"Image %@ has boundaryScore %3.3f", imageName, boundaryScore);
+    return [[NSDecimalNumber alloc] initWithDouble:boundaryScore];
+}
+
+- (NSDecimalNumber *)_contentScoreForImageNamed:(NSString *)imageName {
+    ImageQuality imageQuality =[self _imageQualityForImageNamed:imageName];
+    double boundaryScore = imageQuality.contentScore;
+    NSLog(@"Image %@ has contentScore %3.3f", imageName, boundaryScore);
+    return [[NSDecimalNumber alloc] initWithDouble:boundaryScore];
 }
 
 - (ImageQuality)_imageQualityForImageNamed:(NSString *)imageName {
@@ -143,7 +250,7 @@
     cvReleaseImage(&iplImage);
 
     // Crop IplImage
-    int cropDim = 250;  // see ImageQualityAnalyzer::CROP_WINDOW_SIZE
+    int cropDim = CROP_WINDOW_SIZE;
     IplImage *cropped = 0;
     cvSetImageROI(converted, cvRect(converted->width/2-(cropDim/2), converted->height/2-(cropDim/2), cropDim, cropDim));
     cropped = cvCreateImage(cvGetSize(converted),

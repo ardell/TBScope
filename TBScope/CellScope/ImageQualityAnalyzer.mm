@@ -16,8 +16,6 @@
 
 using namespace cv;
 
-#define CROP_WINDOW_SIZE 250  // Had to reduce this (from 700) to get 10+ frames/sec
-
 +(IplImage *)createIplImageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer {
     IplImage *iplimage = 0;
     IplImage *cropped = 0;
@@ -329,6 +327,47 @@ double meanOfVector(std::vector<int> values) {
     return sum / values.size();
 }
 
+double contrast(cv::Mat src) {
+    std::vector<int> pixelVals = sortValues(pixelValues(src), sortFnAsc);
+    double meanLow = meanOfVector(filterByPercentile(pixelVals, 0.25, 0.75));
+    double meanHigh = meanOfVector(filterByPercentile(pixelVals, 0.995, 1.0));
+    double contrast = meanHigh/MAX(1.0, meanLow);
+
+    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.75);
+    // std::vector<int> high = filterByPercentile(pixelVals, 0.99, 1.0);
+    // NSLog(@"low: %d-%d  high: %d-%d", low.front(), low.back(), high.front(), high.back());
+    // NSLog(@"Histogram:\n");
+    // for (int i=0; i<=255; i++) {
+    //     int numItems = (int)std::count_if(pixelVals.begin(), pixelVals.end(), [i](int j) { return j == i;});
+    //     NSLog(@"%3.0f | %d\n", (float)i, numItems);
+    // }
+
+    return contrast;
+}
+
+double boundaryScore(cv::Mat src) {
+    // Boundaries have decent-sized areas of very high brightness
+    std::vector<int> pixelVals = sortValues(pixelValues(src), sortFnAsc);
+    std::vector<int> highVals = filterByPercentile(pixelVals, 0.90, 1.0);
+    return meanOfVector(highVals);
+}
+
+double contentScore(cv::Mat src) {
+    // Content images have rather small bright dots
+    return contrast(src);
+}
+
+double _mean(std::vector<int> v) {
+    double sum = std::accumulate(v.begin(), v.end(), 0.0);
+    return sum / v.size();
+}
+
+double _stdev(std::vector<int> v) {
+    double mean = _mean(v);
+    double sq_sum = std::inner_product(v.begin(), v.end(), v.begin(), 0.0);
+    return std::sqrt(sq_sum / v.size() - mean * mean);
+}
+
 + (ImageQuality) calculateFocusMetricFromIplImage:(IplImage *)iplImage
 {
 //    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -385,18 +424,6 @@ double meanOfVector(std::vector<int> values) {
     meanStdDev(src, mean, stDev);
     minMaxIdx(src, &minVal, &maxVal);
 
-    std::vector<int> pixelVals = sortValues(pixelValues(green), sortFnAsc);
-    double meanLow = meanOfVector(filterByPercentile(pixelVals, 0.25, 0.75));
-    double meanHigh = meanOfVector(filterByPercentile(pixelVals, 0.995, 1.0));
-    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.75);
-    // std::vector<int> high = filterByPercentile(pixelVals, 0.99, 1.0);
-    // NSLog(@"low: %d-%d  high: %d-%d", low.front(), low.back(), high.front(), high.back());
-    // NSLog(@"Histogram:\n");
-    // for (int i=0; i<=255; i++) {
-    //     int numItems = (int)std::count_if(pixelVals.begin(), pixelVals.end(), [i](int j) { return j == i;});
-    //     NSLog(@"%3.0f | %d\n", (float)i, numItems);
-    // }
-
     iq.entropy = 0;  //computeShannonEntropy(src);
     iq.normalizedGraylevelVariance = 0;  // normalizedGraylevelVariance(src);
     iq.varianceOfLaplacian = 0;  // varianceOfLaplacian(src);
@@ -406,8 +433,9 @@ double meanOfVector(std::vector<int> values) {
     iq.tenengrad9 = 0;  // tenengrad(src, 9);
     iq.maxVal = 0;  // maxVal;
     iq.contrast = 0;
-    iq.greenContrast = meanHigh/MAX(1.0, meanLow);
-    //TODO: need a metric for overall image content (if > 20%, throw it out)
+    iq.greenContrast = contrast(green);
+    iq.boundaryScore = boundaryScore(green);
+    iq.contentScore = iq.greenContrast;  // contentScore(green);  (no sense in calculating it twice)
 
     src.release();
     green.release();
