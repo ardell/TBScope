@@ -1016,26 +1016,32 @@ AVAudioPlayer* _avPlayer;
 #ifdef __cplusplus
 - (void)processImage:(cv::Mat &)image
 {
-    cv::Mat imageCopy;
-    cvtColor(image, imageCopy, CV_BGRA2BGR);
+    // time_t rawtime;
+    // time (&rawtime);
+    // std::cout << ctime(&rawtime) << " frame\n";
+    // return;
 
-    cv::Mat output(imageCopy.rows, imageCopy.cols, CV_8UC3);
-    cv::Mat alpha(imageCopy.rows, imageCopy.cols, CV_8UC1);
-    cv::Mat greenOnly[] = { output };
+    // cv::Mat imageCopy;
+    // cvtColor(image, imageCopy, CV_BGRA2BGR);
+
+    // cv::Mat output(imageCopy.rows, imageCopy.cols, CV_8UC3);
+    // cv::Mat alpha(imageCopy.rows, imageCopy.cols, CV_8UC1);
+    // cv::Mat greenOnly[] = { output };
     // rgba[0] -> bgr[2], rgba[1] -> bgr[1],
     // rgba[2] -> bgr[0], rgba[3] -> alpha[0]
-    int from_to[] = { 1,1 };
-    mixChannels(&imageCopy, 1, greenOnly, 1, from_to, 1);
+    // int from_to[] = { 1,1 };
+    // mixChannels(&imageCopy, 1, greenOnly, 1, from_to, 1);
 
-    cvtColor(greenOnly[0], image, CV_BGR2BGRA);
+    // cvtColor(greenOnly[0], image, CV_BGR2BGRA);
 
     // Calculate focus metric
     double metric;
-    if ([[TBScopeCamera sharedCamera] focusMode] == TBScopeCameraFocusModeSharpness) {
-        metric = [ImageQualityAnalyzer sharpnessForCvMat:image];
-    } else {
-        metric = [ImageQualityAnalyzer contrastForCvMat:image];
-    }
+    metric = [ImageQualityAnalyzer contrastForCvMat:image];
+    // if ([[TBScopeCamera sharedCamera] focusMode] == TBScopeCameraFocusModeSharpness) {
+    //     metric = [ImageQualityAnalyzer sharpnessForCvMat:image];
+    // } else {
+    //     metric = [ImageQualityAnalyzer contrastForCvMat:image];
+    // }
     time_t rawtime;
     time (&rawtime);
     std::cout << ctime(&rawtime) << " metric: " << metric << "\n";

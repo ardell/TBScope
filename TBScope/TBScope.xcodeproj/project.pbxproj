@@ -32,6 +32,7 @@
 		8A7AC5041BD5C61F00795B8B /* MainMenuViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC5031BD5C61F00795B8B /* MainMenuViewController.mm */; settings = {ASSET_TAGS = (); }; };
 		8A7AC5061BD5C69400795B8B /* TBScopeFocusManagerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC5051BD5C69400795B8B /* TBScopeFocusManagerTests.mm */; settings = {ASSET_TAGS = (); }; };
 		8A7AC5081BD5C6CC00795B8B /* ImageQualityAnalyzerTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7AC5071BD5C6CC00795B8B /* ImageQualityAnalyzerTests.mm */; settings = {ASSET_TAGS = (); }; };
+		8A7AC50A1BD69B8800795B8B /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A7AC5091BD69B8800795B8B /* Accelerate.framework */; };
 		8AEC0CE51BC4B23F009C0D00 /* fl_01_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */; settings = {ASSET_TAGS = (); }; };
 		8AEC0CE61BC4B23F009C0D00 /* fl_01_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */; settings = {ASSET_TAGS = (); }; };
 		8AEC0CE71BC4B23F009C0D00 /* fl_01_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */; settings = {ASSET_TAGS = (); }; };
@@ -365,6 +366,7 @@
 		8A7AC5031BD5C61F00795B8B /* MainMenuViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainMenuViewController.mm; sourceTree = "<group>"; };
 		8A7AC5051BD5C69400795B8B /* TBScopeFocusManagerTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TBScopeFocusManagerTests.mm; sourceTree = "<group>"; };
 		8A7AC5071BD5C6CC00795B8B /* ImageQualityAnalyzerTests.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageQualityAnalyzerTests.mm; sourceTree = "<group>"; };
+		8A7AC5091BD69B8800795B8B /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_01.jpg; sourceTree = "<group>"; };
 		8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_02.jpg; sourceTree = "<group>"; };
 		8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_03.jpg; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A7AC50A1BD69B8800795B8B /* Accelerate.framework in Frameworks */,
 				A5C0157F18FDD1D5004BC143 /* MessageUI.framework in Frameworks */,
 				A5C0157D18F8CB37004BC143 /* CoreText.framework in Frameworks */,
 				A5FCCD4318BC6A600004B2F5 /* MapKit.framework in Frameworks */,
@@ -743,6 +746,7 @@
 		9B6BF0B715E19ACD002834C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A7AC5091BD69B8800795B8B /* Accelerate.framework */,
 				A515264919C2674000AFC42E /* AudioToolbox.framework */,
 				A5C0157E18FDD1D5004BC143 /* MessageUI.framework */,
 				A5C0157C18F8CB37004BC143 /* CoreText.framework */,

@@ -7,6 +7,7 @@
 //
 
 #import "ImageQualityAnalyzer.h"
+#include <Accelerate/Accelerate.h>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <vector>       // std::vector
 #include <algorithm>    // std::sort
@@ -387,26 +388,79 @@ double meanOfVector(std::vector<int> values) {
     return tenengrad(src, 3);
 }
 
-+(double)contrastForCvMat:(Mat)rgbMat
++(double)contrastForCvMat:(Mat)src
 {
-    cv::Mat src;
-    cv::cvtColor(rgbMat, src, CV_BGR2GRAY);
+    // Convert the cv::Mat to a vImage_Buffer
+    vImagePixelCount rows = static_cast<vImagePixelCount>(src.rows);
+    vImagePixelCount cols = static_cast<vImagePixelCount>(src.cols);
+    vImage_Buffer _src = { src.data, rows, cols, src.step };
 
-    std::vector<int> pixelVals = sortValues(pixelValues(src), sortFnAsc);
-    double meanLow = meanOfVector(filterByPercentile(pixelVals, 0.25, 0.75));
-    double meanHigh = meanOfVector(filterByPercentile(pixelVals, 0.995, 1.0));
-    NSLog(@"meanLow: %3.3f  meanHigh: %3.3f", meanLow, meanHigh);
-    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.30);
-    // std::vector<int> high = filterByPercentile(pixelVals, 0.80, 0.90);
-    // NSLog(@"low: %d-%d  high: %d-%d", low.front(), low.back(), high.front(), high.back());
+    // Allocate a vImage_Buffer for each channel (ARGB)
+    vImage_Error err;
+    vImage_Buffer _dstA, _dstR, _dstG, _dstB;
+    err = vImageBuffer_Init(&_dstA, rows, cols, 8 * sizeof(uint8_t), kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageBuffer_Init (alpha) error: %ld", err);
+    err = vImageBuffer_Init(&_dstR, rows, cols, 8 * sizeof(uint8_t), kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageBuffer_Init (red) error: %ld", err);
+    err = vImageBuffer_Init(&_dstG, rows, cols, 8 * sizeof(uint8_t), kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageBuffer_Init (green) error: %ld", err);
+    err = vImageBuffer_Init(&_dstB, rows, cols, 8 * sizeof(uint8_t), kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageBuffer_Init (blue) error: %ld", err);
+
+    // Convert image to Planar8 (for speed!)
+    err = vImageConvert_ARGB8888toPlanar8(&_src, &_dstA, &_dstR, &_dstG, &_dstB, kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageConvert_ARGB8888toPlanar8 error: %ld", err);
+
+    // Release channels we don't need
+    free(_dstA.data);
+    free(_dstR.data);
+    free(_dstB.data);
+
+    // Calculate histogram for green channel
+    vImagePixelCount histogram[256];
+    err = vImageHistogramCalculation_Planar8(&_dstG, histogram, kvImageNoFlags);
+    if (err != kvImageNoError) NSLog(@"vImageHistogramCalculation_Planar8 (green) error: %ld", err);
+
+    // Release other resources
+    free(_dstG.data);
+
+    // Calculate contrast from histogram
+    int median = histogramValueAtPercentile(histogram, 0.5);
+    int peak = histogramValueAtPercentile(histogram, 0.9975);
+    std::cout << "median " << median << ", peak: " << peak << "\n";
+    
     // NSLog(@"Histogram:\n");
     // for (int i=0; i<=255; i++) {
-    //     int numItems = (int)std::count_if(pixelVals.begin(), pixelVals.end(), [i](int j) { return j == i;});
-    //     NSLog(@"%3.0f | %d\n", (float)i, numItems);
+    //     NSLog(@"%3.0f | %d\n", (float)i, (int)histogram[i]);
     // }
     
-    return meanHigh/MAX(1.0, meanLow);
+    // return meanHigh/MAX(1.0, meanLow);
+    return peak/MAX(1.0, median);
 }
+
+int histogramValueAtPercentile(vImagePixelCount histogram[256], double percentile) {
+    // Get total number of pixels
+    int totalNumPixels = 0;
+    for (int i=0; i<256; i++) {
+        totalNumPixels += histogram[i];
+    }
+
+    // Find index of percentile
+    int index = (totalNumPixels + 1) * percentile;
+
+    // Loop through histogram summing values until we've hit the median index
+    int pixelsSeenSoFar = 0;
+    int valueAtPercentile = -1;
+    for (int i=0; i<256; i++) {
+        pixelsSeenSoFar += histogram[i];
+        if (valueAtPercentile == -1 && pixelsSeenSoFar >= index) {
+            valueAtPercentile = i;
+        }
+    }
+
+    return valueAtPercentile;
+}
+
 
 //TODO: remove the unnecessary conversion functions in this file
 /*
