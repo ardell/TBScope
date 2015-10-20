@@ -1030,10 +1030,15 @@ AVAudioPlayer* _avPlayer;
     cvtColor(greenOnly[0], image, CV_BGR2BGRA);
 
     // Calculate focus metric
-    ImageQuality iq = [ImageQualityAnalyzer calculateFocusMetricFromCvMat:image];
+    double metric;
+    if ([[TBScopeCamera sharedCamera] focusMode] == TBScopeCameraFocusModeSharpness) {
+        metric = [ImageQualityAnalyzer sharpnessForCvMat:image];
+    } else {
+        metric = [ImageQualityAnalyzer contrastForCvMat:image];
+    }
     time_t rawtime;
     time (&rawtime);
-    std::cout << ctime(&rawtime) << " greenContrast: " << iq.greenContrast << ", sharpness: " << iq.sharpness << "\n";
+    std::cout << ctime(&rawtime) << " metric: " << metric << "\n";
 }
 #endif
 

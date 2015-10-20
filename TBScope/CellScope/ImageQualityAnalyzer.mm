@@ -376,8 +376,36 @@ double meanOfVector(std::vector<int> values) {
     iq.contrast = 0;
     iq.greenContrast = meanHigh/MAX(1.0, meanLow);
     //TODO: need a metric for overall image content (if > 20%, throw it out)
-    
+
     return iq;
+}
+
++(double)sharpnessForCvMat:(Mat)rgbMat
+{
+    cv::Mat src;
+    cv::cvtColor(rgbMat, src, CV_BGR2GRAY);
+    return tenengrad(src, 3);
+}
+
++(double)contrastForCvMat:(Mat)rgbMat
+{
+    cv::Mat src;
+    cv::cvtColor(rgbMat, src, CV_BGR2GRAY);
+
+    std::vector<int> pixelVals = sortValues(pixelValues(src), sortFnAsc);
+    double meanLow = meanOfVector(filterByPercentile(pixelVals, 0.25, 0.75));
+    double meanHigh = meanOfVector(filterByPercentile(pixelVals, 0.995, 1.0));
+    NSLog(@"meanLow: %3.3f  meanHigh: %3.3f", meanLow, meanHigh);
+    // std::vector<int> low = filterByPercentile(pixelVals, 0.25, 0.30);
+    // std::vector<int> high = filterByPercentile(pixelVals, 0.80, 0.90);
+    // NSLog(@"low: %d-%d  high: %d-%d", low.front(), low.back(), high.front(), high.back());
+    // NSLog(@"Histogram:\n");
+    // for (int i=0; i<=255; i++) {
+    //     int numItems = (int)std::count_if(pixelVals.begin(), pixelVals.end(), [i](int j) { return j == i;});
+    //     NSLog(@"%3.0f | %d\n", (float)i, numItems);
+    // }
+    
+    return meanHigh/MAX(1.0, meanLow);
 }
 
 //TODO: remove the unnecessary conversion functions in this file

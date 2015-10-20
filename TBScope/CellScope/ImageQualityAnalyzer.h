@@ -34,6 +34,9 @@ typedef struct
 + (ImageQuality) calculateFocusMetricFromCvMat:(cv::Mat)src;
 + (ImageQuality) calculateFocusMetricFromIplImage:(IplImage *)iplImage;
 
++ (double) contrastForCvMat:(cv::Mat)src;
++ (double) sharpnessForCvMat:(cv::Mat)src;
+
 + (UIImage*) maskCircleFromImage:(UIImage*)inputImage;
 
 + (UIImage *)cropImage:(UIImage*)image withBounds:(CGRect)rect;
