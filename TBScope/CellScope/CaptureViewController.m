@@ -935,13 +935,19 @@ AVAudioPlayer* _avPlayer;
             }
             
             //take an image
-            dispatch_async(dispatch_get_main_queue(), ^(void){
-                self.scanStatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Acquiring image %d of %d...", nil),fieldNum+1,numRows*numCols];
-                self.autoScanProgressBar.progress = (float)fieldNum/(numRows*numCols);
-            });
             [NSThread sleepForTimeInterval:stageSettlingTime];
-            [self didPressCapture:nil];
-            [NSThread sleepForTimeInterval:0.5];
+            if (iq.isBoundary) {
+                NSLog(@"Skipping image capture; image contains boundary.");
+            } else if (iq.isEmpty) {
+                NSLog(@"Skipping image capture; image is empty.");
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    self.scanStatusLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Acquiring image %d of %d...", nil),fieldNum+1,numRows*numCols];
+                    self.autoScanProgressBar.progress = (float)fieldNum/(numRows*numCols);
+                });
+                [self didPressCapture:nil];
+                [NSThread sleepForTimeInterval:0.5];
+            }
             
             //move stage in y
             [[TBScopeHardware sharedHardware] moveStageWithDirection:yDir

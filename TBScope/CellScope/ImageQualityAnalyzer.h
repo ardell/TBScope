@@ -29,6 +29,8 @@ typedef struct
         double greenContrast;
         double boundaryScore;
         double contentScore;
+        bool isBoundary;
+        bool isEmpty;
     } ImageQuality;
 
 @interface ImageQualityAnalyzer : NSObject
