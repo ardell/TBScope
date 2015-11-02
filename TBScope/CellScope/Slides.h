@@ -17,6 +17,8 @@
 @property (nonatomic, retain) NSString * sputumQuality;
 @property (nonatomic, retain) NSString * dateCollected;
 @property (nonatomic, retain) NSString * dateScanned;
+@property (nonatomic, retain) NSString * roiSpritePath;
+@property (nonatomic, retain) NSString * roiSpriteGoogleDriveFileId;
 @property (nonatomic, retain) SlideAnalysisResults *slideAnalysisResults;
 @property (nonatomic, retain) NSOrderedSet *slideImages;
 @property (nonatomic, retain) Exams *exam;

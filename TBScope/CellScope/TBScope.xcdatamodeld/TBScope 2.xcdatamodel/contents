@@ -77,6 +77,8 @@
     <entity name="Slides" representedClassName="Slides" syncable="YES">
         <attribute name="dateCollected" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="dateScanned" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roiSpriteGoogleDriveFileId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roiSpritePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="slideNumber" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="sputumQuality" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="exam" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exams" inverseName="examSlides" inverseEntity="Exams" syncable="YES"/>
@@ -90,13 +92,13 @@
     </entity>
     <elements>
         <element name="Exams" positionX="-344" positionY="-193" width="128" height="358"/>
+        <element name="FollowUpData" positionX="-155" positionY="-198" width="128" height="163"/>
         <element name="ImageAnalysisResults" positionX="196" positionY="218" width="128" height="148"/>
         <element name="Images" positionX="25" positionY="99" width="128" height="163"/>
         <element name="Logs" positionX="288" positionY="-214" width="128" height="103"/>
         <element name="ROIs" positionX="369" positionY="278" width="128" height="133"/>
         <element name="SlideAnalysisResults" positionX="25" positionY="-70" width="128" height="133"/>
-        <element name="Slides" positionX="-162" positionY="-0" width="128" height="148"/>
+        <element name="Slides" positionX="-162" positionY="-0" width="128" height="178"/>
         <element name="Users" positionX="288" positionY="-99" width="128" height="90"/>
-        <element name="FollowUpData" positionX="-155" positionY="-198" width="128" height="163"/>
     </elements>
 </model>

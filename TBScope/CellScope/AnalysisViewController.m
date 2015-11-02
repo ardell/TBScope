@@ -6,7 +6,12 @@
 //  Copyright (c) 2013 UC Berkeley Fletcher Lab. All rights reserved.
 //
 
+#import <PromiseKit/PromiseKit.h>
+#import "Promise+Hang.h"
+#import <DynamicSpriteSheet/DSSSpriteSheet.h>
 #import "AnalysisViewController.h"
+#import "TBScopeImageAsset.h"
+#import "UIImage+Crop.h"
 
 @implementation AnalysisViewController
 
@@ -207,12 +212,42 @@
             slideResults.diagnosis = @"NEGATIVE";
         }
         //TODO: WHAT ABOUT INDETERMINATE?
-        
         currentSlide.slideAnalysisResults = slideResults;
-
         [TBScopeData CSLog:[NSString stringWithFormat:@"Slide-level analysis complete with score: %f",slideScore]
                 inCategory:@"ANALYSIS"];
-        
+
+        // Prepare ROI sprite sheet
+        int roiWidthInPixels = 30;
+        int roiHeightInPixels = 30;
+        DSSSpriteSheet *spriteSheet = [[DSSSpriteSheet alloc] initWithItemWidth:roiWidthInPixels
+                                                                        height:roiHeightInPixels
+                                                                   itemsPerRow:50];
+        for (ROIs *roi in sortedROIs) {
+            // Get the image belonging to the ROI
+            Images *image = (Images *)roi.image;
+            PMKPromise *promise = [TBScopeData getImage:image];
+            promise.then(^(UIImage *uiImage){
+                // Create roiImage representing just the ROI area
+                CGRect cropRect = CGRectMake(roi.x, roi.y, roiWidthInPixels, roiHeightInPixels);
+                UIImage *roiImage = [uiImage crop:cropRect];
+
+                // Add roiImage to the sprite sheet
+                [spriteSheet add:roiImage];
+            });
+
+            // Wait until request finishes so ROIs get added in order
+            [PMKPromise hang:promise];
+        }
+
+        // Save sprite sheet image
+        UIImage *sprite = [spriteSheet toSpriteSheet];
+        PMKPromise *promise = [TBScopeImageAsset saveImage:sprite];
+        promise.then(^(NSURL *assetURL){
+            // Assign path to currentSlide.roiSpritePath
+            currentSlide.roiSpritePath = [assetURL absoluteString];
+        });
+        [PMKPromise hang:promise];
+
         [TBScopeData touchExam:self.currentSlide.exam];
         [[TBScopeData sharedData] saveCoreData];
 
