@@ -7,6 +7,10 @@
 #include <unordered_map>
 
 #define PATCHSZ 28
+#define PATCH_WIDTH 48
+#define PATCH_HEIGHT 48
+#define SPRITESHEET_PATCHES_PER_ROW 25
+#define SPRITESHEET_BORDER_WIDTH 2
 #define CIRCLEMASKRADIUS 790
 
 #if __APPLE__

@@ -7,6 +7,7 @@
 //
 
 #import "TBScopeData.h"
+#import "TBScopeImageAsset.h"
 
 NSManagedObjectModel* _managedObjectModel;
 NSPersistentStoreCoordinator* _persistentStoreCoordinator;
@@ -377,39 +378,7 @@ NSPersistentStoreCoordinator* _persistentStoreCoordinator;
 
 + (PMKPromise *)getImage:(Images*)currentImage
 {
-    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
-        NSURL *aURL = [NSURL URLWithString:currentImage.path];
-        if ([[aURL scheme] isEqualToString:@"assets-library"]) {
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-            [library assetForURL:aURL resultBlock:^(ALAsset *asset) {
-                 NSError* err = nil;
-                 UIImage* image = nil;
-                 
-                 if (asset==nil) {
-                    err = [NSError errorWithDomain:@"TBScopeData" code:1 userInfo:nil];
-                     [TBScopeData CSLog:@"Image returned was nil" inCategory:@"DATA"];
-                 } else {
-                     //load the image
-                     ALAssetRepresentation* rep = [asset defaultRepresentation];
-                     CGImageRef iref = [rep fullResolutionImage];
-                     image = [UIImage imageWithCGImage:iref];
-
-                     rep = nil;
-                     iref = nil;
-                 }
-                 resolve(err ?: image);
-             }
-             failureBlock:^(NSError *error)
-             {
-                 [TBScopeData CSLog:@"Error while loading image from asset library" inCategory:@"DATA"];
-                 resolve(error);
-             }];
-        } else {
-            //this is a file in the bundle (only necessary for demo images)
-            UIImage* image = [UIImage imageNamed:currentImage.path];
-            resolve(image);
-        }
-    }];
+    return [TBScopeImageAsset getImageAtPath:currentImage.path];
 }
 
 + (void)getImage:(Images*)currentImage resultBlock:(void (^)(UIImage* image, NSError* err))resultBlock

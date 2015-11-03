@@ -217,47 +217,80 @@
                 inCategory:@"ANALYSIS"];
 
         // Prepare ROI sprite sheet
-        int roiWidthInPixels = 30;
-        int roiHeightInPixels = 30;
-        DSSSpriteSheet *spriteSheet = [[DSSSpriteSheet alloc] initWithItemWidth:roiWidthInPixels
-                                                                        height:roiHeightInPixels
-                                                                   itemsPerRow:50];
-        for (ROIs *roi in sortedROIs) {
-            // Get the image belonging to the ROI
-            Images *image = (Images *)roi.image;
-            PMKPromise *promise = [TBScopeData getImage:image];
-            promise.then(^(UIImage *uiImage){
-                // Create roiImage representing just the ROI area
-                CGRect cropRect = CGRectMake(roi.x, roi.y, roiWidthInPixels, roiHeightInPixels);
-                UIImage *roiImage = [uiImage crop:cropRect];
+        PMKPromise *spritePromise = [PMKPromise promiseWithResolver:^(PMKResolver finishedSavingSprite) {
+            if ([sortedROIs count] > 0) {
+                // Create a sprite sheet
+                DSSSpriteSheet *spriteSheet = [[DSSSpriteSheet alloc] initWithItemWidth:PATCH_WIDTH
+                                                                                 height:PATCH_HEIGHT
+                                                                            itemsPerRow:SPRITESHEET_PATCHES_PER_ROW
+                                                                            borderWidth:SPRITESHEET_BORDER_WIDTH];
 
-                // Add roiImage to the sprite sheet
-                [spriteSheet add:roiImage];
-            });
+                // Add all patches to the sprite sheet
+                float redThreshold = [[NSUserDefaults standardUserDefaults] floatForKey:@"RedThreshold"];
+                float yellowThreshold = [[NSUserDefaults standardUserDefaults] floatForKey:@"YellowThreshold"];
+                PMKPromise *addPatchesPromise = [PMKPromise promiseWithResolver:^(PMKResolver resolver) {
+                    __block PMKResolver finishedAddingPatches = resolver;
+                    __block void (^addROIAtIndex)(int) = ^(int index){
+                        if (index >= [sortedROIs count]) {
+                            finishedAddingPatches(nil);
+                            return;
+                        }
 
-            // Wait until request finishes so ROIs get added in order
-            [PMKPromise hang:promise];
-        }
+                        // Get the image belonging to the ROI
+                        ROIs *roi = [sortedROIs objectAtIndex:(NSInteger)index];
+                        Images *image = (Images *)roi.imageAnalysisResult.image;
+                        PMKPromise *promise = [TBScopeData getImage:image];
+                        promise.then(^(UIImage *uiImage){
+                            // Get an roiImage representing just the ROI area
+                            UIImage *roiImage = [TBScopeData getPatchFromImage:uiImage X:roi.x Y:roi.y];
 
-        // Save sprite sheet image
-        UIImage *sprite = [spriteSheet toSpriteSheet];
-        PMKPromise *promise = [TBScopeImageAsset saveImage:sprite];
-        promise.then(^(NSURL *assetURL){
-            // Assign path to currentSlide.roiSpritePath
-            currentSlide.roiSpritePath = [assetURL absoluteString];
-        });
-        [PMKPromise hang:promise];
+                            // TODO: add border based on score
+                            UIColor *borderColor;
+                            if (roi.score > redThreshold) {
+                                borderColor = [UIColor redColor];
+                            } else if (roi.score > yellowThreshold) {
+                                borderColor = [UIColor yellowColor];
+                            } else {
+                                borderColor = [UIColor greenColor];
+                            }
+                            [spriteSheet addImage:roiImage withBorderColor:borderColor];
 
-        [TBScopeData touchExam:self.currentSlide.exam];
-        [[TBScopeData sharedData] saveCoreData];
+                            // Recurse (async to avoid stack too deep)
+                            dispatch_async(dispatch_get_main_queue(), ^{
+                                addROIAtIndex(index+1);
+                            });
+                        });
+                    };
+                    addROIAtIndex(0);
+                }];
 
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (self.showResultsAfterAnalysis) {
-                [self performSegueWithIdentifier:@"ResultsSegue" sender:nil];
+                // Save sprite sheet image
+                addPatchesPromise.then(^{
+                    UIImage *sprite = [spriteSheet toSpriteSheet];
+                    PMKPromise *savePromise = [TBScopeImageAsset saveImage:sprite];
+                    savePromise.then(^(NSURL *assetURL){
+                        // Assign path to currentSlide.roiSpritePath
+                        currentSlide.roiSpritePath = [assetURL absoluteString];
+                        finishedSavingSprite(nil);
+                    });
+                });
             } else {
-                [self.navigationController popViewControllerAnimated:YES];
+                finishedSavingSprite(nil);
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"AnalysisResultsSaved" object:nil];
+        }];
+
+        spritePromise.then(^{
+            [TBScopeData touchExam:self.currentSlide.exam];
+            [[TBScopeData sharedData] saveCoreData];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (self.showResultsAfterAnalysis) {
+                    [self performSegueWithIdentifier:@"ResultsSegue" sender:nil];
+                } else {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"AnalysisResultsSaved" object:nil];
+            });
         });
     }
     
