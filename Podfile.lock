@@ -13,13 +13,22 @@ PODS:
   - OCMock (3.2)
   - PromiseKit/Hang (1.6.0):
     - PromiseKit/Promise
+  - PromiseKit/Join (1.6.0):
+    - PromiseKit/Promise
+    - PromiseKit/Until
   - PromiseKit/Promise (1.6.0)
+  - PromiseKit/Until (1.6.0):
+    - PromiseKit/Promise
+    - PromiseKit/When
+  - PromiseKit/When (1.6.0):
+    - PromiseKit/Promise
 
 DEPENDENCIES:
   - DynamicSpriteSheet (from `https://github.com/ardell/DynamicSpriteSheet.git`)
   - Google-API-Client/Drive (~> 1.0)
   - OCMock
   - PromiseKit/Hang (~> 1.6)
+  - PromiseKit/Join (~> 1.6)
   - PromiseKit/Promise (~> 1.6)
 
 EXTERNAL SOURCES:

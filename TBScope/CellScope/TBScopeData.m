@@ -137,19 +137,23 @@ NSPersistentStoreCoordinator* _persistentStoreCoordinator;
 }
 
 
-- (void) saveCoreData
+- (PMKPromise *)saveCoreData
 {
-    if (_managedObjectContext.hasChanges) {
+    return [PMKPromise promiseWithResolver:^(PMKResolver resolve) {
         [_managedObjectContext performBlock:^{
-            NSError *error;
-            if ([_managedObjectContext save:&error]) {
-                [TBScopeData CSLog:@"Committed changes to core data" inCategory:@"DATA"];
-            } else {
-                NSString *logMessage = [NSString stringWithFormat:@"Failed to commit to core data: %@", error.description];
-                [TBScopeData CSLog:logMessage inCategory:@"DATA"];
+            if (_managedObjectContext.hasChanges) {
+                [_managedObjectContext performBlock:^{
+                    NSError *error;
+                    if ([_managedObjectContext save:&error]) {
+                        [TBScopeData CSLog:@"Committed changes to core data" inCategory:@"DATA"];
+                    } else {
+                        NSString *logMessage = [NSString stringWithFormat:@"Failed to commit to core data: %@", error.description];
+                        [TBScopeData CSLog:logMessage inCategory:@"DATA"];
+                    }
+                }];
             }
         }];
-    }
+    }];
 }
 
 //assumes CD has already been cleared

@@ -13,22 +13,25 @@
 #import "TBScopeHardware.h"
 #import "TBScopeData.h"
 
-#import "GTMOAuth2ViewControllerTouch.h"
 #import "GTLDrive.h"
 
 #import "CoreDataJSONHelper.h"
 
 #define ONLY_CHECK_RECORDS_SINCE_LAST_FULL_SYNC 0
-#define GOOGLE_DRIVE_TIMEOUT 5
+
+extern NSString *const kGoogleDriveSyncErrorDomain;
+typedef NS_ENUM(int, GoogleDriveSyncError) {
+    GoogleDriveSyncError_ExamNotFound
+};
 
 @interface GoogleDriveSync : NSObject
 
 + (id)sharedGDS;
 
-@property (nonatomic, retain) GTLServiceDrive *driveService;
-
 @property (strong, nonatomic) Reachability* reachability;
 
+@property (strong, nonatomic) NSMutableArray* slideUploadQueue;
+@property (strong, nonatomic) NSMutableArray* slideDownloadQueue;
 @property (strong, nonatomic) NSMutableArray* imageUploadQueue;
 @property (strong, nonatomic) NSMutableArray* imageDownloadQueue;
 @property (strong, nonatomic) NSMutableArray* examUploadQueue;
@@ -37,15 +40,6 @@
 @property (nonatomic) BOOL syncEnabled;
 @property (nonatomic) BOOL isSyncing;
 
-- (BOOL) isLoggedIn;
-
-- (NSString*) userEmail;
-
 - (void)doSync;
 
-- (void) executeQueryWithTimeout:(GTLQuery*)query
-               completionHandler:(id)completionBlock
-                    errorHandler:(void(^)(NSError*))errorBlock;
-
 @end
-

@@ -12,6 +12,11 @@
 		84072C4E196BB403004F8826 /* CoreDataJSONHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072C4D196BB403004F8826 /* CoreDataJSONHelper.m */; };
 		84072C51196BB410004F8826 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 84072C50196BB410004F8826 /* Reachability.m */; };
 		8A2FF9761BC1E20700B99E63 /* TBScopeFocusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2FF9751BC1E20700B99E63 /* TBScopeFocusManager.m */; };
+		8A4E2B0D1BEC06F200F34274 /* GoogleDriveService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B0C1BEC06F200F34274 /* GoogleDriveService.m */; };
+		8A4E2B1F1BEC14E800F34274 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B1E1BEC14E800F34274 /* NSData+MD5.m */; };
+		8A4E2B221BEC167100F34274 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B211BEC167100F34274 /* UIImage+Crop.m */; };
+		8A4E2B251BEC17B400F34274 /* PMKPromise+NoopPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B241BEC17B400F34274 /* PMKPromise+NoopPromise.m */; };
+		8A4E2B271BECF89C00F34274 /* GoogleDriveServiceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B261BECF89C00F34274 /* GoogleDriveServiceTests.m */; };
 		8A5253FA1BBC7B75009B29BF /* TBScopeCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5253F71BBC7B75009B29BF /* TBScopeCamera.m */; };
 		8A5253FB1BBC7B75009B29BF /* TBScopeCameraReal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5253F91BBC7B75009B29BF /* TBScopeCameraReal.m */; };
 		8A5253FE1BBC7CA6009B29BF /* TBScopeCameraMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5253FD1BBC7CA6009B29BF /* TBScopeCameraMock.m */; };
@@ -24,12 +29,17 @@
 		8A5CDE591BB4489F004E30A3 /* TBScopeHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE581BB4489F004E30A3 /* TBScopeHardware.m */; };
 		8A5CDE5C1BB44A34004E30A3 /* TBScopeHardwareMock.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE5B1BB44A34004E30A3 /* TBScopeHardwareMock.m */; };
 		8A5CDE5F1BB44BE5004E30A3 /* TBScopeHardwareReal.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A5CDE5E1BB44BE5004E30A3 /* TBScopeHardwareReal.m */; };
+		8A788A951BF168E1004FA179 /* PMKPromise+NoopPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4E2B241BEC17B400F34274 /* PMKPromise+NoopPromise.m */; };
+		8A7F5AD61BF4FFE40011DA05 /* SlidesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A7F5AD51BF4FFE40011DA05 /* SlidesTests.m */; };
 		8ABF90011BE92AC700ECE877 /* TBScopeImageAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ABF90001BE92AC700ECE877 /* TBScopeImageAsset.m */; };
+		8ACEFF521BF29A2200F541F8 /* ImagesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEFF511BF29A2200F541F8 /* ImagesTests.m */; };
+		8ACEFF541BF29A9400F541F8 /* ExamsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ACEFF531BF29A9400F541F8 /* ExamsTests.m */; };
+		8AD462881BF2767A007BF460 /* PMKPromise+RejectedPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD462871BF2767A007BF460 /* PMKPromise+RejectedPromise.m */; };
+		8AD462971BF27742007BF460 /* PMKPromise+RejectedPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AD462871BF2767A007BF460 /* PMKPromise+RejectedPromise.m */; };
 		8AE3C6B41BE56EEA00EABA78 /* drive.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AE3C6B01BE56EEA00EABA78 /* drive.png */; };
 		8AE3C6B51BE56EEA00EABA78 /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AE3C6B11BE56EEA00EABA78 /* gear.png */; };
 		8AE3C6B61BE56EEA00EABA78 /* notebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AE3C6B21BE56EEA00EABA78 /* notebook.png */; };
 		8AE3C6B71BE56EEA00EABA78 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 8AE3C6B31BE56EEA00EABA78 /* user.png */; };
-		8AE3C6BC1BE7D2A100EABA78 /* UIImage+Crop.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AE3C6BB1BE7D2A100EABA78 /* UIImage+Crop.m */; };
 		8AEC0CE51BC4B23F009C0D00 /* fl_01_01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */; };
 		8AEC0CE61BC4B23F009C0D00 /* fl_01_02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */; };
 		8AEC0CE71BC4B23F009C0D00 /* fl_01_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */; };
@@ -50,6 +60,7 @@
 		8AEC0CF61BC4B240009C0D00 /* fl_04_03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CE21BC4B23F009C0D00 /* fl_04_03.jpg */; };
 		8AEC0CF71BC4B240009C0D00 /* fl_04_04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CE31BC4B23F009C0D00 /* fl_04_04.jpg */; };
 		8AEC0CF81BC4B240009C0D00 /* fl_04_05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8AEC0CE41BC4B23F009C0D00 /* fl_04_05.jpg */; };
+		8AFCF3961BF24334001259CF /* GoogleDriveSync+UnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8AFCF3951BF24334001259CF /* GoogleDriveSync+UnitTests.m */; };
 		9B13455615E28E14009863DF /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B13455515E28E14009863DF /* ImageIO.framework */; };
 		9B6BF0B915E19ACD002834C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6BF0B815E19ACD002834C5 /* UIKit.framework */; };
 		9B6BF0BB15E19ACD002834C5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B6BF0BA15E19ACD002834C5 /* Foundation.framework */; };
@@ -342,6 +353,15 @@
 		843EF682977FA22DC2DE0F04 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A2FF9741BC1E20700B99E63 /* TBScopeFocusManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeFocusManager.h; path = Services/TBScopeFocusManager.h; sourceTree = "<group>"; };
 		8A2FF9751BC1E20700B99E63 /* TBScopeFocusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBScopeFocusManager.m; path = Services/TBScopeFocusManager.m; sourceTree = "<group>"; };
+		8A4E2B0B1BEC06F200F34274 /* GoogleDriveService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GoogleDriveService.h; path = Services/GoogleDriveService.h; sourceTree = "<group>"; };
+		8A4E2B0C1BEC06F200F34274 /* GoogleDriveService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GoogleDriveService.m; path = Services/GoogleDriveService.m; sourceTree = "<group>"; };
+		8A4E2B1D1BEC14E800F34274 /* NSData+MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+MD5.h"; path = "Extensions/NSData+MD5.h"; sourceTree = "<group>"; };
+		8A4E2B1E1BEC14E800F34274 /* NSData+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+MD5.m"; path = "Extensions/NSData+MD5.m"; sourceTree = "<group>"; };
+		8A4E2B201BEC167100F34274 /* UIImage+Crop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+Crop.h"; path = "Extensions/UIImage+Crop.h"; sourceTree = "<group>"; };
+		8A4E2B211BEC167100F34274 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Crop.m"; path = "Extensions/UIImage+Crop.m"; sourceTree = "<group>"; };
+		8A4E2B231BEC17B400F34274 /* PMKPromise+NoopPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PMKPromise+NoopPromise.h"; path = "Extensions/PMKPromise+NoopPromise.h"; sourceTree = "<group>"; };
+		8A4E2B241BEC17B400F34274 /* PMKPromise+NoopPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PMKPromise+NoopPromise.m"; path = "Extensions/PMKPromise+NoopPromise.m"; sourceTree = "<group>"; };
+		8A4E2B261BECF89C00F34274 /* GoogleDriveServiceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleDriveServiceTests.m; sourceTree = "<group>"; };
 		8A5253F61BBC7B75009B29BF /* TBScopeCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeCamera.h; path = Services/TBScopeCamera.h; sourceTree = "<group>"; };
 		8A5253F71BBC7B75009B29BF /* TBScopeCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBScopeCamera.m; path = Services/TBScopeCamera.m; sourceTree = "<group>"; };
 		8A5253F81BBC7B75009B29BF /* TBScopeCameraReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeCameraReal.h; path = Services/TBScopeCameraReal.h; sourceTree = "<group>"; };
@@ -363,14 +383,17 @@
 		8A5CDE5D1BB44BE5004E30A3 /* TBScopeHardwareReal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeHardwareReal.h; path = Services/TBScopeHardwareReal.h; sourceTree = "<group>"; };
 		8A5CDE5E1BB44BE5004E30A3 /* TBScopeHardwareReal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBScopeHardwareReal.m; path = Services/TBScopeHardwareReal.m; sourceTree = "<group>"; };
 		8A6998811BB31B2E0034AA93 /* CellScope-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CellScope-Prefix.pch"; sourceTree = "<group>"; };
+		8A7F5AD51BF4FFE40011DA05 /* SlidesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlidesTests.m; path = CoreData/SlidesTests.m; sourceTree = "<group>"; };
 		8ABF8FFF1BE92AC700ECE877 /* TBScopeImageAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TBScopeImageAsset.h; path = Services/TBScopeImageAsset.h; sourceTree = "<group>"; };
 		8ABF90001BE92AC700ECE877 /* TBScopeImageAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TBScopeImageAsset.m; path = Services/TBScopeImageAsset.m; sourceTree = "<group>"; };
+		8ACEFF511BF29A2200F541F8 /* ImagesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImagesTests.m; path = CoreData/ImagesTests.m; sourceTree = "<group>"; };
+		8ACEFF531BF29A9400F541F8 /* ExamsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExamsTests.m; path = CoreData/ExamsTests.m; sourceTree = "<group>"; };
+		8AD462861BF2767A007BF460 /* PMKPromise+RejectedPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PMKPromise+RejectedPromise.h"; path = "Extensions/PMKPromise+RejectedPromise.h"; sourceTree = "<group>"; };
+		8AD462871BF2767A007BF460 /* PMKPromise+RejectedPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PMKPromise+RejectedPromise.m"; path = "Extensions/PMKPromise+RejectedPromise.m"; sourceTree = "<group>"; };
 		8AE3C6B01BE56EEA00EABA78 /* drive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drive.png; sourceTree = "<group>"; };
 		8AE3C6B11BE56EEA00EABA78 /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		8AE3C6B21BE56EEA00EABA78 /* notebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notebook.png; sourceTree = "<group>"; };
 		8AE3C6B31BE56EEA00EABA78 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
-		8AE3C6BB1BE7D2A100EABA78 /* UIImage+Crop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+Crop.m"; path = "Services/UIImage+Crop.m"; sourceTree = "<group>"; };
-		8AE3C6CB1BE7D2BF00EABA78 /* UIImage+Crop.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIImage+Crop.h"; path = "Services/UIImage+Crop.h"; sourceTree = "<group>"; };
 		8AEC0CD11BC4B23F009C0D00 /* fl_01_01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_01.jpg; sourceTree = "<group>"; };
 		8AEC0CD21BC4B23F009C0D00 /* fl_01_02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_02.jpg; sourceTree = "<group>"; };
 		8AEC0CD31BC4B23F009C0D00 /* fl_01_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_01_03.jpg; sourceTree = "<group>"; };
@@ -391,6 +414,8 @@
 		8AEC0CE21BC4B23F009C0D00 /* fl_04_03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_04_03.jpg; sourceTree = "<group>"; };
 		8AEC0CE31BC4B23F009C0D00 /* fl_04_04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_04_04.jpg; sourceTree = "<group>"; };
 		8AEC0CE41BC4B23F009C0D00 /* fl_04_05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fl_04_05.jpg; sourceTree = "<group>"; };
+		8AFCF3941BF24334001259CF /* GoogleDriveSync+UnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GoogleDriveSync+UnitTests.h"; path = "Extensions/GoogleDriveSync+UnitTests.h"; sourceTree = "<group>"; };
+		8AFCF3951BF24334001259CF /* GoogleDriveSync+UnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GoogleDriveSync+UnitTests.m"; path = "Extensions/GoogleDriveSync+UnitTests.m"; sourceTree = "<group>"; };
 		9B13455515E28E14009863DF /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9B6BF0B415E19ACD002834C5 /* TBScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TBScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B6BF0B815E19ACD002834C5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -635,6 +660,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8A09122E1BF171F2006B9020 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8AFCF3941BF24334001259CF /* GoogleDriveSync+UnitTests.h */,
+				8AFCF3951BF24334001259CF /* GoogleDriveSync+UnitTests.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		8A4E2B1C1BEC14B700F34274 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				8A4E2B201BEC167100F34274 /* UIImage+Crop.h */,
+				8A4E2B211BEC167100F34274 /* UIImage+Crop.m */,
+				8A4E2B1D1BEC14E800F34274 /* NSData+MD5.h */,
+				8A4E2B1E1BEC14E800F34274 /* NSData+MD5.m */,
+				8A4E2B231BEC17B400F34274 /* PMKPromise+NoopPromise.h */,
+				8A4E2B241BEC17B400F34274 /* PMKPromise+NoopPromise.m */,
+				8AD462861BF2767A007BF460 /* PMKPromise+RejectedPromise.h */,
+				8AD462871BF2767A007BF460 /* PMKPromise+RejectedPromise.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		8A5253FF1BBD638A009B29BF /* Mock Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -648,9 +697,10 @@
 		8A52542C1BBDA1C0009B29BF /* TBScopeTests */ = {
 			isa = PBXGroup;
 			children = (
+				8AFCF3831BF24014001259CF /* Services */,
+				8AFCF3971BF24599001259CF /* CoreData */,
+				8A09122E1BF171F2006B9020 /* Extensions */,
 				8A52542D1BBDA1C0009B29BF /* Supporting Files */,
-				8A5254441BBDA4D9009B29BF /* ImageQualityAnalyzerTests.m */,
-				8A52546E1BBED52A009B29BF /* TBScopeFocusManagerTests.m */,
 			);
 			path = TBScopeTests;
 			sourceTree = "<group>";
@@ -712,10 +762,30 @@
 				8A2FF9751BC1E20700B99E63 /* TBScopeFocusManager.m */,
 				8ABF8FFF1BE92AC700ECE877 /* TBScopeImageAsset.h */,
 				8ABF90001BE92AC700ECE877 /* TBScopeImageAsset.m */,
-				8AE3C6CB1BE7D2BF00EABA78 /* UIImage+Crop.h */,
-				8AE3C6BB1BE7D2A100EABA78 /* UIImage+Crop.m */,
+				8A4E2B0B1BEC06F200F34274 /* GoogleDriveService.h */,
+				8A4E2B0C1BEC06F200F34274 /* GoogleDriveService.m */,
 			);
 			name = Services;
+			sourceTree = "<group>";
+		};
+		8AFCF3831BF24014001259CF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				8A5254441BBDA4D9009B29BF /* ImageQualityAnalyzerTests.m */,
+				8A52546E1BBED52A009B29BF /* TBScopeFocusManagerTests.m */,
+				8A4E2B261BECF89C00F34274 /* GoogleDriveServiceTests.m */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		8AFCF3971BF24599001259CF /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				8ACEFF511BF29A2200F541F8 /* ImagesTests.m */,
+				8ACEFF531BF29A9400F541F8 /* ExamsTests.m */,
+				8A7F5AD51BF4FFE40011DA05 /* SlidesTests.m */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		9B6BF0A915E19ACD002834C5 = {
@@ -729,6 +799,7 @@
 				A5B45F9918303F4F002F4D30 /* UI */,
 				A5B72A821899BFC70013DA9F /* TouchJSON */,
 				AC0353A61786106D001AE3FA /* Classifier */,
+				8A4E2B1C1BEC14B700F34274 /* Extensions */,
 				9B6BF0C915E19ACD002834C5 /* CSAppDelegate.h */,
 				9B6BF0CA15E19ACD002834C5 /* CSAppDelegate.mm */,
 				84072C49196BB3EA004F8826 /* ImageQualityAnalyzer.h */,
@@ -1397,7 +1468,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ACEFF541BF29A9400F541F8 /* ExamsTests.m in Sources */,
+				8A7F5AD61BF4FFE40011DA05 /* SlidesTests.m in Sources */,
+				8AFCF3961BF24334001259CF /* GoogleDriveSync+UnitTests.m in Sources */,
+				8ACEFF521BF29A2200F541F8 /* ImagesTests.m in Sources */,
+				8A788A951BF168E1004FA179 /* PMKPromise+NoopPromise.m in Sources */,
 				8A5254451BBDA4D9009B29BF /* ImageQualityAnalyzerTests.m in Sources */,
+				8A4E2B271BECF89C00F34274 /* GoogleDriveServiceTests.m in Sources */,
+				8AD462971BF27742007BF460 /* PMKPromise+RejectedPromise.m in Sources */,
 				8A52546F1BBED52A009B29BF /* TBScopeFocusManagerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1411,6 +1489,7 @@
 				9B6BF0CB15E19ACD002834C5 /* CSAppDelegate.mm in Sources */,
 				A5FCCD3118B6F0730004B2F5 /* Logs.m in Sources */,
 				9B6BF10215E19F2A002834C5 /* LoginViewController.m in Sources */,
+				8A4E2B1F1BEC14E800F34274 /* NSData+MD5.m in Sources */,
 				A5B45F9818303E51002F4D30 /* ExamListViewController.m in Sources */,
 				A5C27AAF182EFAF400A8CB1D /* TBSlideViewer.m in Sources */,
 				A5C27AA4182C3E8600A8CB1D /* EditExamViewController.m in Sources */,
@@ -1422,8 +1501,10 @@
 				A513226619E7857D00B11AEE /* FollowUpData.m in Sources */,
 				A513226219E5FDF900B11AEE /* FollowUpViewController.m in Sources */,
 				AC1CF6A6179E52DB007FA438 /* BlobClass.cpp in Sources */,
+				8A4E2B251BEC17B400F34274 /* PMKPromise+NoopPromise.m in Sources */,
 				AC1CF6AA179E52DB007FA438 /* Features.cpp in Sources */,
 				8A5253FE1BBC7CA6009B29BF /* TBScopeCameraMock.m in Sources */,
+				8A4E2B0D1BEC06F200F34274 /* GoogleDriveService.m in Sources */,
 				A500C0B818AC0E4100D8C569 /* CJSONSerializer.m in Sources */,
 				A500C0B718AC0E4100D8C569 /* CJSONDeserializer.m in Sources */,
 				AC1CF6AC179E52DB007FA438 /* ImageTools.cpp in Sources */,
@@ -1453,6 +1534,7 @@
 				A5FCCD3818B6F0DD0004B2F5 /* TBScopeData.m in Sources */,
 				8A5CDE591BB4489F004E30A3 /* TBScopeHardware.m in Sources */,
 				A599E11418247BEF00B52EF2 /* AnalysisViewController.m in Sources */,
+				8AD462881BF2767A007BF460 /* PMKPromise+RejectedPromise.m in Sources */,
 				A5C27AA1182C3AB900A8CB1D /* MainMenuViewController.m in Sources */,
 				AC5E74A9179F421900BDC4EB /* svm-predict.c in Sources */,
 				A5C27AA7182C562C00A8CB1D /* CaptureViewController.m in Sources */,
@@ -1468,7 +1550,6 @@
 				A5B72A7318988FB90013DA9F /* GoogleDriveSync.m in Sources */,
 				A513228819E9F65E00B11AEE /* LogEntryDetailViewController.m in Sources */,
 				8A5CDE5C1BB44A34004E30A3 /* TBScopeHardwareMock.m in Sources */,
-				8AE3C6BC1BE7D2A100EABA78 /* UIImage+Crop.m in Sources */,
 				84072C4B196BB3EA004F8826 /* ImageQualityAnalyzer.mm in Sources */,
 				A500C0B918AC0E4100D8C569 /* NSDictionary_JSONExtensions.m in Sources */,
 				A5FCCD3318B6F0730004B2F5 /* SlideAnalysisResults.m in Sources */,
@@ -1478,6 +1559,7 @@
 				A5FCCD3218B6F0730004B2F5 /* ROIs.m in Sources */,
 				A5FCCD3418B6F0730004B2F5 /* Slides.m in Sources */,
 				A5FCCD3518B6F0730004B2F5 /* Users.m in Sources */,
+				8A4E2B221BEC167100F34274 /* UIImage+Crop.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <PromiseKit/Promise.h>
+#import "GoogleDriveService.h"
 
 @class FollowUpData, Slides;
 
@@ -48,4 +50,10 @@
 - (void)removeExamSlidesObject:(Slides *)value;
 - (void)addExamSlides:(NSOrderedSet *)values;
 - (void)removeExamSlides:(NSOrderedSet *)values;
+
+- (PMKPromise *)uploadToGoogleDrive:(GoogleDriveService *)googleDriveService;
++ (PMKPromise *)downloadFromGoogleDrive:(NSString *)googleDriveFileId
+                   managedObjectContext:(NSManagedObjectContext *)managedObjectContext
+                     googleDriveService:(GoogleDriveService *)googleDriveService;
+
 @end

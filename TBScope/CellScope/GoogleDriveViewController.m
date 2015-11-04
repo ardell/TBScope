@@ -7,6 +7,7 @@
 //
 
 #import "GoogleDriveViewController.h"
+#import "GoogleDriveService.h"
 
 //#import "ViewController.h"
 
@@ -29,7 +30,7 @@ static NSString *const kClientSecret = @"mbDjzu2hKDW23QpNJXe_0Ukd";
 {
     
     //if logged in, display current username and the logout button, else, load the login screen
-    if ([[GoogleDriveSync sharedGDS] isLoggedIn]) {
+    if ([[[GoogleDriveService alloc] init] isLoggedIn]) {
         self.usernameLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Logged in as: %@", nil),[[GoogleDriveSync sharedGDS] userEmail]];
         [self.loginButton setTitle:NSLocalizedString(@"Log Out",nil) forState:UIControlStateNormal];
     }
@@ -43,7 +44,7 @@ static NSString *const kClientSecret = @"mbDjzu2hKDW23QpNJXe_0Ukd";
 - (IBAction)logInOut:(id)sender
 {
     
-    if ([[GoogleDriveSync sharedGDS] isLoggedIn]) {
+    if ([[[GoogleDriveService alloc] init] isLoggedIn]) {
         [GTMOAuth2ViewControllerTouch removeAuthFromKeychainForName:@"CellScope"];
         [GTMOAuth2ViewControllerTouch revokeTokenForGoogleAuthentication:[[[GoogleDriveSync sharedGDS] driveService] authorizer]];
         [[[GoogleDriveSync sharedGDS] driveService] setAuthorizer:nil];

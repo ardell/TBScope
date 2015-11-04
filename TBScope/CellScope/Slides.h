@@ -8,17 +8,22 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <PromiseKit/Promise.h>
+#import "GoogleDriveService.h"
 
 @class Exams, Images, SlideAnalysisResults;
 
 @interface Slides : NSManagedObject
+
+// Only public so we can mock it out in tests
+@property (nonatomic, retain) GoogleDriveService *googleDriveService;
 
 @property (nonatomic) int32_t slideNumber;
 @property (nonatomic, retain) NSString * sputumQuality;
 @property (nonatomic, retain) NSString * dateCollected;
 @property (nonatomic, retain) NSString * dateScanned;
 @property (nonatomic, retain) NSString * roiSpritePath;
-@property (nonatomic, retain) NSString * roiSpriteGoogleDriveFileId;
+@property (nonatomic, retain) NSString * roiSpriteGoogleDriveFileID;
 @property (nonatomic, retain) SlideAnalysisResults *slideAnalysisResults;
 @property (nonatomic, retain) NSOrderedSet *slideImages;
 @property (nonatomic, retain) Exams *exam;
@@ -36,4 +41,8 @@
 - (void)removeSlideImagesObject:(Images *)value;
 - (void)addSlideImages:(NSOrderedSet *)values;
 - (void)removeSlideImages:(NSOrderedSet *)values;
+
+- (PMKPromise *)uploadRoiSpriteSheetToGoogleDrive;
+- (PMKPromise *)downloadRoiSpriteSheetFromGoogleDrive;
+
 @end
