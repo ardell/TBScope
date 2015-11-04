@@ -368,7 +368,7 @@ namespace Classifier
 				}
 
                 //really don't understand what this is doing...and it seems to be setting some patches to -1944,-2592
-				float too_close = 0.75 * PATCHSZ;
+				float too_close = 0.75 * PATCH_WIDTH;
 				if (min_distance <= too_close) {
 					MatDict feature = features[min_index];
 					cv::Mat close_feature_row = feature.find("row")->second;

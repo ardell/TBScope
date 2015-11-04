@@ -7,13 +7,18 @@
 //
 
 #import "ImageROIResultView.h"
+#import <DynamicSpriteSheet/DSSSpriteSheet.h>
+#import <PromiseKit/Promise+Hang.h>
 #import "ImageQualityAnalyzer.h"
+#import "TBScopeImageAsset.h"
 
 @interface ImageROIResultView ()
 
 @end
 
-@implementation ImageROIResultView
+@implementation ImageROIResultView {
+    PMKPromise *_spriteSheetPromise;
+}
 
 float threshold_score = 1;
 
@@ -155,9 +160,14 @@ float threshold_score = 1;
     ImageROIResultCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageROIResultCell" forIndexPath:indexPath];
     
     cell.currentROI = (ROIs*)self.ROIList[indexPath.item];
-    
 
-    cell.imageView.image = [UIImage imageWithData:cell.currentROI.image];
+    if (_spriteSheetPromise) {
+        _spriteSheetPromise.then(^(DSSSpriteSheet *spriteSheet){
+            cell.imageView.image = [spriteSheet imageAtIndex:(int)indexPath.item];
+        });
+    } else {
+        cell.imageView.image = [UIImage imageWithData:cell.currentROI.image];
+    }
     
     if (self.boxesVisible)
     {
