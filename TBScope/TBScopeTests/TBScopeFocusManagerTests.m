@@ -36,7 +36,8 @@
 }
 
 - (void)tearDown {
-    // Un-swizzle [TBScopeHardware sharedHardware]
+    // Un-swizzle
+    [self _toggleFocusManagerPauseForSettlingSwizzling];
     [self _toggleSharedHardwareSwizzling];
 
     [super tearDown];
