@@ -25,6 +25,7 @@
     [self.sputumQualityChoicesArray  addObject:NSLocalizedString(@"BLOOD",nil)];
     [self.sputumQualityChoicesArray  addObject:NSLocalizedString(@"SALIVA",nil)];
     [self.sputumQualityChoicesArray  addObject:NSLocalizedString(@"BLOOD+SALIVA",nil)];
+    [self.sputumQualityChoicesArray  addObject:NSLocalizedString(@"MUCUS",nil)];
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -107,6 +108,8 @@
         [self.sputumQualityPicker selectRow:2 inComponent:0 animated:NO];
     else if ([self.currentSlide.sputumQuality isEqualToString:@"BLOOD+SALIVA"])
         [self.sputumQualityPicker selectRow:3 inComponent:0 animated:NO];
+    else if ([self.currentSlide.sputumQuality isEqualToString:@"MUCUS"])
+        [self.sputumQualityPicker selectRow:4 inComponent:0 animated:NO];
 
     [TBScopeData CSLog:@"Edit slide screen presented" inCategory:@"USER"];    
 }
@@ -141,6 +144,9 @@
                 break;
             case 3:
                 sc = @"BLOOD+SALIVA";
+                break;
+            case 4:
+                sc = @"MUCUS";
                 break;
             default:
                 sc = @"";

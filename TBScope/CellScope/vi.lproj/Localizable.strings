@@ -64,6 +64,7 @@
 "BLOOD" = "Máu";
 "SALIVA" = "Nước bọt";
 "BLOOD+SALIVA" = "Máu + Nước bọt";
+"MUCUS" = "Mucus";
 "New Slide" = "Tiêu bản mới";
 "Date Collected" = "Ngày lấy mẫu"; //field longer
 "Sputum Quality" = "Chất lượng mẫu";
