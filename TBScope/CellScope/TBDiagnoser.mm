@@ -83,8 +83,9 @@
 }
 
 
-- (ImageAnalysisResults*) runWithImage: (UIImage*) img {
-
+- (ImageAnalysisResults*)runWithUIImage:(UIImage*)uiImage
+                          coreDataImage:(Images *)coreDataImage
+{
     [TBScopeData CSLog:@"Analysis started" inCategory:@"ANALYSIS"];
     
     //can prob. put this in helper file
@@ -97,7 +98,7 @@
 
     //convert image to OpenCV matrix
     
-    cv::Mat converted_img = [self cvMatWithImage:[self grayScaleImage:img]];
+    cv::Mat converted_img = [self cvMatWithImage:[self grayScaleImage:uiImage]];
     //run the image (C++ algorithm), returning a C++ vector (1D)
     
     //for debugging, get a string to the local bundle documents folder path
@@ -132,7 +133,7 @@
         roi.x = (int)resVector.at(i+2);
         
         //TODO: might be faster to do this in CPP, since we are already are generating image patches there
-        roi.image = UIImagePNGRepresentation([TBScopeData getPatchFromImage:img X:roi.x Y:roi.y]);
+        roi.image = UIImagePNGRepresentation([TBScopeData getPatchFromImage:uiImage X:roi.x Y:roi.y]);
         
         [results addImageROIsObject:roi];
         
@@ -169,8 +170,8 @@
     results.diagnosis = (topAverage>diagnosticThreshold);
     results.numAFBManual = 0;
     results.dateAnalyzed = [TBScopeData stringFromDate:[NSDate date]];
-    
-    
+    results.image = coreDataImage;
+
     [TBScopeData CSLog:[NSString stringWithFormat:@"Image analysis results generated, score: %f",topAverage]
             inCategory:@"ANALYSIS"];
     

@@ -129,9 +129,10 @@
         [TBScopeData getImage:currentImage resultBlock:^(UIImage* image, NSError* err){
             
             if (err==nil) {
-                //do analysis on this image
-                
-                currentImage.imageAnalysisResults = [diagnoser runWithImage:(image)]; //todo: spin out as new thread
+                // Do analysis on this image
+                // TODO: spin out as new thread
+                currentImage.imageAnalysisResults = [diagnoser runWithUIImage:image
+                                                                coreDataImage:currentImage];
 
                 [TBScopeData touchExam:self.currentSlide.exam];
                 [[TBScopeData sharedData] saveCoreData];

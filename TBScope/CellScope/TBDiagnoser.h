@@ -12,7 +12,7 @@
 
 @interface TBDiagnoser : NSObject
 
-- (ImageAnalysisResults*) runWithImage: (UIImage*)img;
-
+- (ImageAnalysisResults*)runWithUIImage:(UIImage*)uiImage
+                          coreDataImage:(Images *)coreDataImage;
 
 @end

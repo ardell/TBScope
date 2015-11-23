@@ -305,32 +305,21 @@ NSPersistentStoreCoordinator* _persistentStoreCoordinator;
 {
     NSLog(@"%@",[NSString stringWithFormat:@"%@>> %@",cat,entry]);
 
-    NSManagedObjectContext *tmpMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    tmpMOC.parentContext = [[TBScopeData sharedData] managedObjectContext];
-    [tmpMOC performBlockAndWait:^{
-        Logs* logEntry = (Logs*)[NSEntityDescription insertNewObjectForEntityForName:@"Logs" inManagedObjectContext:tmpMOC];
+    NSManagedObjectContext *moc = [[TBScopeData sharedData] managedObjectContext];
+    [moc performBlockAndWait:^{
+        Logs* logEntry = (Logs*)[NSEntityDescription insertNewObjectForEntityForName:@"Logs" inManagedObjectContext:moc];
         logEntry.entry = entry;
         logEntry.category = cat;
         logEntry.date = [TBScopeData stringFromDate:[NSDate date]];
         logEntry.synced = NO;
 
-        // Push to parent
-        NSError *error;
-        if (![tmpMOC save:&error]) {
-            // handle error
-            NSLog(@"Error saving temporary context: %@", error.description);
-        }
-
-        // Save parent context to disk asynchronously
+        // Save managed object context
         // NOTE: we don't use [[TBScopeData sharedData] saveCoreData] here because
         // it in turn saves a log message to CoreData causing infinite recursion.
-        NSManagedObjectContext *mainMOC = [[TBScopeData sharedData] managedObjectContext];
-        [mainMOC performBlockAndWait:^{
-            NSError *mainError;
-            if (![mainMOC save:&mainError]) {
-                NSLog(@"Error persisting log message to core data.");
-            }
-        }];
+        NSError *error;
+        if (![moc save:&error]) {
+            NSLog(@"Error persisting log message to core data.");
+        }
     }];
 }
 
