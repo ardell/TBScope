@@ -214,20 +214,15 @@
         
         [TBScopeData touchExam:self.currentSlide.exam];
         [[TBScopeData sharedData] saveCoreData];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"AnalysisResultsSaved" object:nil];
-        
-        if (self.showResultsAfterAnalysis) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSegueWithIdentifier:@"ResultsSegue" sender:nil];
-            });
-        }
-        else {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-        }
 
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.showResultsAfterAnalysis) {
+                [self performSegueWithIdentifier:@"ResultsSegue" sender:nil];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AnalysisResultsSaved" object:nil];
+        });
     }
     
 }

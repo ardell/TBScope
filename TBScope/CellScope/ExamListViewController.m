@@ -314,8 +314,10 @@
 - (void)runAnalysisOnNextExam
 {
     static int examNum = 0;
-    
-    [NSThread sleepForTimeInterval:2.0]; //a little delay so you can see the result
+
+    if (examNum > 0) {
+        [NSThread sleepForTimeInterval:3.0]; //a little delay so you can see the result
+    }
     
     if (self.examListData.count>examNum) {
         Exams* ex = self.examListData[examNum];
